@@ -1,2 +1,7 @@
+include ':cache'
+include ':presentation'
+include ':remote'
+include ':data'
+include ':domain'
 include ':app'
 rootProject.name = "weather_app"
