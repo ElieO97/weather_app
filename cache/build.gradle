@@ -1,22 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
 }
-
-apply from: "../ktlint.gradle"
 
 android {
     compileSdkVersion sdks.compileSdkVersion
     buildToolsVersion sdks.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.elieomatuku.weather_app"
         minSdkVersion sdks.minSdkVersion
         targetSdkVersion sdks.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -25,25 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    flavorDimensions "version"
-    productFlavors {
-        dev {
-            applicationIdSuffix = ".dev"
-            resValue "string", "app_name", (rootProject.ext.appName + "_dev")
-        }
-
-        beta {
-            applicationIdSuffix = ".beta"
-            resValue "string", "app_name", (rootProject.ext.appName + "_beta")
-        }
-
-        prod {
-            resValue "string", "app_name", rootProject.ext.appName
-        }
-    }
-
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -60,8 +39,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
 
-    //dependency injection
-    implementation "org.kodein.di:kodein-di-generic-jvm:${versions.kodein}"
+    implementation project(':data')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
