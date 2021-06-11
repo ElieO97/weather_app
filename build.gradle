@@ -25,6 +25,10 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+ext {
+    appName = "Weather"
+}
+
 task installGitHook(type: Copy) {
     from new File(rootProject.rootDir, 'pre-commit')
     into { new File(rootProject.rootDir, '.git/hooks') }
