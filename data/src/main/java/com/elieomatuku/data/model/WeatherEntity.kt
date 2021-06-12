@@ -12,5 +12,6 @@ data class WeatherEntity(
         val maximumTemperature: Double,
         val location: LocationEntity,
         val date: Long,
-        val weatherConditionEntity: WeatherConditionEntity
+        val weatherConditionEntity: WeatherConditionEntity,
+        val lastUpdate: Long,
 )

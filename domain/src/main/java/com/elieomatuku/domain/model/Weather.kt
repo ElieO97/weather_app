@@ -12,7 +12,8 @@ data class Weather(
         val maximumTemperature: Double,
         val weatherCondition: WeatherCondition,
         val location: Location,
-        val date: Long
+        val date: Long,
+        val lastUpdate: Long,
 )
 
 
