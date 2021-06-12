@@ -2,7 +2,7 @@ package com.elieomatuku.domain.interactor.weather
 
 import com.elieomatuku.domain.interactor.CompleteResult
 import com.elieomatuku.domain.interactor.UseCase
-import com.elieomatuku.domain.interactor.safeInteractorCall
+import com.elieomatuku.domain.interactor.safeUseCaseCall
 import com.elieomatuku.domain.model.Weather
 import com.elieomatuku.domain.repository.WeatherRepository
 
@@ -13,9 +13,9 @@ import com.elieomatuku.domain.repository.WeatherRepository
 class GetLocationFiveDayForecast(private val weatherRepository: WeatherRepository) :
     UseCase<GetLocationFiveDayForecast.Input, CompleteResult<List<Weather>>> {
     override suspend fun execute(params: Input): CompleteResult<List<Weather>> {
-        return safeInteractorCall {
+        return safeUseCaseCall {
 
-            return@safeInteractorCall weatherRepository.getLocationWeatherFiveDayForecast(
+            return@safeUseCaseCall weatherRepository.getLocationWeatherFiveDayForecast(
                 params.latitude,
                 params.longitude
             )

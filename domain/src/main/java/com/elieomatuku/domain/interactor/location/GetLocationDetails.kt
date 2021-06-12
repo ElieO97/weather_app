@@ -2,7 +2,7 @@ package com.elieomatuku.domain.interactor.location
 
 import com.elieomatuku.domain.interactor.CompleteResult
 import com.elieomatuku.domain.interactor.UseCase
-import com.elieomatuku.domain.interactor.safeInteractorCall
+import com.elieomatuku.domain.interactor.safeUseCaseCall
 import com.elieomatuku.domain.model.Location
 import com.elieomatuku.domain.repository.LocationRepository
 
@@ -14,9 +14,9 @@ class GetLocationDetails(private val locationRepository: LocationRepository) :
     UseCase<GetLocationDetails.Input, CompleteResult<Location>> {
 
     override suspend fun execute(params: Input): CompleteResult<Location> {
-        return safeInteractorCall {
+        return safeUseCaseCall {
 
-            return@safeInteractorCall locationRepository.getLocationDetails(
+            return@safeUseCaseCall locationRepository.getLocationDetails(
                 params.latitude,
                 params.longitude
             )

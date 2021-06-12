@@ -1,7 +1,8 @@
 package com.elieomatuku.domain.interactor.location
 
-import com.elieomatuku.domain.interactor.NoOutputUseCase
-import com.elieomatuku.domain.interactor.safeInteractorCall
+import com.elieomatuku.domain.interactor.CompleteResult
+import com.elieomatuku.domain.interactor.UseCase
+import com.elieomatuku.domain.interactor.safeUseCaseCall
 import com.elieomatuku.domain.model.Location
 import com.elieomatuku.domain.repository.LocationRepository
 
@@ -10,11 +11,11 @@ import com.elieomatuku.domain.repository.LocationRepository
  */
 
 class SaveFavouriteLocation(private val locationRepository: LocationRepository) :
-    NoOutputUseCase<Location> {
-    override suspend fun execute(params: Location) {
-        safeInteractorCall {
+    UseCase<Location, CompleteResult<Unit>> {
+    override suspend fun execute(params: Location): CompleteResult<Unit> {
+        return safeUseCaseCall {
 
-            return@safeInteractorCall locationRepository.saveFavouriteLocation(
+            return@safeUseCaseCall locationRepository.saveFavouriteLocation(
                 params
             )
         }
