@@ -6,13 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.elieomatuku.cache.location.CachedLocation
+import com.elieomatuku.cache.weather.CachedWeather
 
 
 /**
  * Created by elieomatuku on 2021-06-12
  */
 
-@Database(entities = [CachedLocation::class, CachedLocation::class], version = 1)
+@Database(entities = [CachedLocation::class, CachedWeather::class], version = 1)
 abstract class WeatherAppDatabase : RoomDatabase() {
 
     companion object {
