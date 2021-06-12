@@ -8,7 +8,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.elieomatuku.cache.location.CachedLocation
 import com.elieomatuku.cache.weather.CachedWeather
 
-
 /**
  * Created by elieomatuku on 2021-06-12
  */

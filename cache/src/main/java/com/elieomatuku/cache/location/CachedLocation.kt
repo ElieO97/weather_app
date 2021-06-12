@@ -3,7 +3,6 @@ package com.elieomatuku.cache.location
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
 /**
  * Created by elieomatuku on 2021-06-12
  */
