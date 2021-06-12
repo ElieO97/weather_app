@@ -14,4 +14,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin_version}"
 
     implementation project(':data')
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
+
+    implementation "androidx.core:core-ktx:${versions.ktx}"
+    implementation "androidx.preference:preference-ktx:1.1.1"
+    implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
+    implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
+        exclude module: "retrofit:${versions.retrofit}"
+    }
 }
