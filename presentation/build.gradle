@@ -52,6 +52,7 @@ dependencies {
 
     //dependency injection
     implementation "org.kodein.di:kodein-di-generic-jvm:${versions.kodein}"
+    implementation "org.kodein.di:kodein-di-framework-android-x:${versions.kodein}"
 
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
