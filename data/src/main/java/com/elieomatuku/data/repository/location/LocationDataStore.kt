@@ -17,5 +17,4 @@ interface LocationDataStore {
     fun getCurrentLocation(lat: Double, long: Double): LocationEntity
 
     fun getFavouriteLocations(): List<LocationEntity>
-
 }
