@@ -22,7 +22,8 @@ buildscript {
             nodes_utils      : '1.0.0',
             nodes_utils_okhttp: '0.12.2',
             room : '2.2.5',
-            kodein: '6.4.0'
+            kodein: '6.4.0',
+            googlePlayServicesLocation: '18.0.0'
     ]
 
     ext.sdks = [

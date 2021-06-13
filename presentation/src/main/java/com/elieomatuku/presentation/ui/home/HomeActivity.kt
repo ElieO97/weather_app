@@ -1,17 +1,25 @@
 package com.elieomatuku.presentation.ui.home
 
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_home.*
+import timber.log.Timber
 
 /**
  * Created by elieomatuku on 2021-06-13
  */
 
 class HomeActivity : BaseActivity(R.layout.activity_home) {
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +28,41 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.title = null
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                ),
+                98
+            )
+        }
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+        ) {
+
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    Timber.d("location: lat = ${location?.latitude}, long = ${location?.latitude} ")
+                }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
