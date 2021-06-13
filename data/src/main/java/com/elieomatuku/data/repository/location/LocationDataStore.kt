@@ -8,13 +8,13 @@ import com.elieomatuku.data.model.LocationEntity
 
 interface LocationDataStore {
 
-    fun clearAllLocations()
+    suspend fun clearAllLocations()
 
-    fun saveFavouriteLocation(location: LocationEntity)
+    suspend fun saveFavouriteLocation(location: LocationEntity)
 
-    fun deleteFavouriteLocation(location: LocationEntity)
+    suspend fun deleteFavouriteLocation(location: LocationEntity)
 
-    fun getCurrentLocation(lat: Double, long: Double): LocationEntity
+    suspend fun getCurrentLocation(lat: Double, long: Double): LocationEntity
 
-    fun getFavouriteLocations(): List<LocationEntity>
+    suspend fun getFavouriteLocations(): List<LocationEntity>
 }

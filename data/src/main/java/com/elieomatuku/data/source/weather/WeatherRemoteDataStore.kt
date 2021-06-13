@@ -9,15 +9,15 @@ import com.elieomatuku.data.repository.weather.WeatherRemote
  */
 
 class WeatherRemoteDataStore(private val weatherRemote: WeatherRemote) : WeatherDataStore {
-    override fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity {
+    override suspend fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity {
         return weatherRemote.getLocationCurrentWeather(lat, long)
     }
 
-    override fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
+    override suspend fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
         return weatherRemote.getLocationWeatherFiveDayForecast(lat, long)
     }
 
-    override fun clearAllWeather() {
+    override suspend fun clearAllWeather() {
         throw UnsupportedOperationException()
     }
 }

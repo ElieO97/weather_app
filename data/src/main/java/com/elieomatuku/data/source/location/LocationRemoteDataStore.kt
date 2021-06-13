@@ -9,23 +9,23 @@ import com.elieomatuku.data.repository.location.LocationRemote
  */
 
 class LocationRemoteDataStore(private val locationRemote: LocationRemote) : LocationDataStore {
-    override fun clearAllLocations() {
+    override suspend fun clearAllLocations() {
         throw UnsupportedOperationException()
     }
 
-    override fun saveFavouriteLocation(location: LocationEntity) {
+    override suspend fun saveFavouriteLocation(location: LocationEntity) {
         throw UnsupportedOperationException()
     }
 
-    override fun deleteFavouriteLocation(location: LocationEntity) {
+    override suspend fun deleteFavouriteLocation(location: LocationEntity) {
         throw UnsupportedOperationException()
     }
 
-    override fun getCurrentLocation(lat: Double, long: Double): LocationEntity {
+    override suspend fun getCurrentLocation(lat: Double, long: Double): LocationEntity {
         return locationRemote.getCurrentLocation(lat, long)
     }
 
-    override fun getFavouriteLocations(): List<LocationEntity> {
+    override suspend fun getFavouriteLocations(): List<LocationEntity> {
         throw UnsupportedOperationException()
     }
 }

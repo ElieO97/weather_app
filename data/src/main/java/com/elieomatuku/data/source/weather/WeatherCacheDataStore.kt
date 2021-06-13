@@ -9,15 +9,15 @@ import com.elieomatuku.data.repository.weather.WeatherDataStore
  */
 
 class WeatherCacheDataStore(private val weatherCache: WeatherCache) : WeatherDataStore {
-    override fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity {
+    override suspend fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity {
         return weatherCache.getLocationCurrentWeather(lat, long)
     }
 
-    override fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
+    override suspend fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
         return weatherCache.getLocationWeatherFiveDayForecast(lat, long)
     }
 
-    override fun clearAllWeather() {
+    override suspend fun clearAllWeather() {
         return weatherCache.clearAllWeather()
     }
 }

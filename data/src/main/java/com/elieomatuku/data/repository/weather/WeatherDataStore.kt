@@ -7,9 +7,9 @@ import com.elieomatuku.data.model.WeatherEntity
  */
 
 interface WeatherDataStore {
-    fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity
+    suspend fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity
 
-    fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity>
+    suspend fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity>
 
-    fun clearAllWeather()
+    suspend fun clearAllWeather()
 }
