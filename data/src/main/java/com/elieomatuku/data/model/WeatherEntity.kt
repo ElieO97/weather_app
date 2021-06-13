@@ -28,6 +28,5 @@ data class WeatherEntity(
                 lastUpdate = weatherEntity.lastUpdate
             )
         }
-
     }
 }

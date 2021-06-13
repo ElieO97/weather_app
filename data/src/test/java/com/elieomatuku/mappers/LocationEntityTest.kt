@@ -6,7 +6,6 @@ import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotSame
 import org.junit.Test
 
-
 /**
  * Created by elieomatuku on 2021-06-13
  */
@@ -19,6 +18,5 @@ class LocationEntityTest {
 
         assertEquals(locationEntity.let(LocationEntity::toLocation), location)
         assertNotSame(locationEntity.let(LocationEntity::toLocation), Location("Joburg", 80.0, 73.0))
-
     }
 }

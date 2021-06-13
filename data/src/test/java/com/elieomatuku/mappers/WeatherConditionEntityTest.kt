@@ -5,14 +5,13 @@ import com.elieomatuku.domain.model.WeatherCondition
 import junit.framework.Assert
 import org.junit.Test
 
-
 /**
  * Created by elieomatuku on 2021-06-13
  */
 
 class WeatherConditionEntityTest {
 
-    var weatherCondition = WeatherConditionEntity(800, "sunny", "sunny" )
+    var weatherCondition = WeatherConditionEntity(800, "sunny", "sunny")
 
     @Test
     fun sunnyMapperTest() {
