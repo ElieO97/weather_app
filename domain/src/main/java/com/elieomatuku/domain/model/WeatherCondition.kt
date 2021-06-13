@@ -5,5 +5,5 @@ package com.elieomatuku.domain.model
  */
 
 enum class WeatherCondition {
-    Cloudy, Sunny, Rainy
+    Cloudy, Sunny, Rainy, Unknown
 }

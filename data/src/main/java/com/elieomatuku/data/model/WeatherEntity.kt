@@ -1,5 +1,7 @@
 package com.elieomatuku.data.model
 
+import com.elieomatuku.domain.model.Weather
+
 /**
  * Created by elieomatuku on 2021-06-12
  */
@@ -12,4 +14,20 @@ data class WeatherEntity(
     val date: Long,
     val weatherConditionEntity: WeatherConditionEntity,
     val lastUpdate: Long,
-)
+) {
+
+    companion object {
+        fun toWeather(weatherEntity: WeatherEntity): Weather {
+            return Weather(
+                temperature = weatherEntity.temperature,
+                minimumTemperature = weatherEntity.minimumTemperature,
+                maximumTemperature = weatherEntity.maximumTemperature,
+                location = weatherEntity.location.let(LocationEntity::toLocation),
+                date = weatherEntity.date,
+                weatherCondition = weatherEntity.weatherConditionEntity.let(WeatherConditionEntity::toWeatherCondition),
+                lastUpdate = weatherEntity.lastUpdate
+            )
+        }
+
+    }
+}
