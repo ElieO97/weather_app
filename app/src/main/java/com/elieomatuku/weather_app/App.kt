@@ -1,6 +1,7 @@
 package com.elieomatuku.weather_app
 
 import android.app.Application
+import org.kodein.di.Kodein
 import timber.log.Timber
 
 /**
@@ -9,8 +10,15 @@ import timber.log.Timber
 
 class App : Application() {
 
+    companion object {
+        lateinit var kodein: Kodein
+            private set
+    }
+
     override fun onCreate() {
         super.onCreate()
+
+        kodein = depInject(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
