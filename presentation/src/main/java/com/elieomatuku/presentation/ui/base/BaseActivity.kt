@@ -19,7 +19,7 @@ abstract class BaseActivity : AppCompatActivity, KodeinAware {
     constructor() : super()
     constructor(@LayoutRes resId: Int) : super(resId)
 
-    override val kodein: Kodein by closestKodein(this.applicationContext)
+    override val kodein: Kodein by closestKodein()
     val viewModelFactory: ViewModelProvider.Factory by instance()
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
