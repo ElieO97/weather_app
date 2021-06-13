@@ -32,20 +32,31 @@ android {
             applicationIdSuffix = ".dev"
             resValue "string", "app_name", (rootProject.ext.appName + "_dev")
             buildConfigField "String", "WEATHER_API_URL", "\"http://api.openweathermap.org/\""
+            buildConfigField "String", "WEATHER_APIKEY", "\"baf66fc5ff4747e6c6fc2108010ad270\""
+
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
+            buildConfigField "String", "WEATHER_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
         }
 
         beta {
             applicationIdSuffix = ".beta"
             resValue "string", "app_name", (rootProject.ext.appName + "_beta")
+
             buildConfigField "String", "WEATHER_API_URL", "\"http://api.openweathermap.org/\""
+            buildConfigField "String", "WEATHER_APIKEY", "\"baf66fc5ff4747e6c6fc2108010ad270\""
+
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
+            buildConfigField "String", "LOCATION_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
         }
 
         prod {
             resValue "string", "app_name", rootProject.ext.appName
+
             buildConfigField "String", "WEATHER_API_URL", "\"http://api.openweathermap.org/\""
+            buildConfigField "String", "WEATHER_APIKEY", "\"baf66fc5ff4747e6c6fc2108010ad270\""
+
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
+            buildConfigField "String", "LOCATION_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
         }
     }
 
