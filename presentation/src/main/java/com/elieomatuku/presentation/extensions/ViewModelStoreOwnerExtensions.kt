@@ -1,26 +1,14 @@
 package com.elieomatuku.presentation.extensions
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import java.io.Serializable
 
 /**
  * Created by elieomatuku on 2021-06-13
  */
-
-inline fun <reified VM : ViewModel> ViewModelStoreOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
-    return ViewModelProvider(this, factory).get(VM::class.java)
-}
-
-inline fun <reified VM : ViewModel> Fragment.getSharedViewModel(factory: ViewModelProvider.Factory): VM {
-    return ViewModelProvider(requireActivity(), factory).get(VM::class.java)
-}
 
 private object UninitializedValue
 
