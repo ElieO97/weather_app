@@ -1,5 +1,6 @@
 package com.elieomatuku.remote.api
 
+import com.elieomatuku.remote.model.RemoteForecast
 import com.elieomatuku.remote.model.RemoteWeather
 import retrofit2.Response
 import retrofit2.http.GET
@@ -21,5 +22,5 @@ interface WeatherApi {
     suspend fun getLocationWeatherFiveDayForecast(
         @Path("lat") lat: Double,
         @Path("long") long: Double
-    )
+    ): Response<RemoteForecast>
 }
