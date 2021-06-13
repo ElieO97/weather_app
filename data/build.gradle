@@ -14,4 +14,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin_version}"
 
     implementation project(':domain')
+
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:${versions.mockitoKotlin}"
+    testImplementation "com.nhaarman:expect.kt:${versions.nhaarman}"
 }
