@@ -8,7 +8,7 @@ import com.elieomatuku.data.model.LocationEntity
 
 interface LocationRemote {
 
-    fun getCurrentLocation(lat: Double, long: Double): LocationEntity
+    suspend fun getCurrentLocation(lat: Double, long: Double): LocationEntity
 
-    fun searchLocation(name: String): List<LocationEntity>
+    suspend fun searchLocation(name: String): List<LocationEntity>
 }
