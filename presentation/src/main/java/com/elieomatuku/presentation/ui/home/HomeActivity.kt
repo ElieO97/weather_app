@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import com.elieomatuku.domain.interactor.location.GetCurrentLocation
 import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
@@ -25,7 +24,6 @@ import timber.log.Timber
 class HomeActivity : BaseActivity(R.layout.activity_home) {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val getCurrentLocation: GetCurrentLocation by instance()
     private val getLocationCurrentWeather: GetLocationCurrentWeather by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +32,12 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.title = null
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.navHostContainer, WeatherFragment.newInstance())
+                .commit()
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -69,7 +72,6 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
                 .addOnSuccessListener { location: Location? ->
                     Timber.d("location: lat = ${location?.latitude}, long = ${location?.latitude} ")
                     GlobalScope.launch {
-//                        getCurrentLocation.execute(GetCurrentLocation.Input(location?.latitude!!, location.longitude))
                         getLocationCurrentWeather.execute(GetLocationCurrentWeather.Input(location?.latitude!!, location.longitude))
                     }
                 }
