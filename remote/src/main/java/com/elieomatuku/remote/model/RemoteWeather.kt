@@ -11,7 +11,7 @@ import com.elieomatuku.data.model.WeatherEntity
 
 @Keep
 data class RemoteWeather(
-    val weather: WeatherCondition?,
+    val weather: List<WeatherCondition?>,
     val main: WeatherMain?,
     val dt: Long?,
     val id: Long?,
@@ -31,7 +31,7 @@ data class RemoteWeather(
                     latitude = remoteWeather.coord?.lat ?: 0.0,
                 ),
                 date = remoteWeather.dt ?: 0,
-                weatherConditionEntity = remoteWeather.weather?.let(
+                weatherConditionEntity = remoteWeather.weather.first()?.let(
                     WeatherCondition::toWeatherConditionEntity
                 ) ?: WeatherConditionEntity(0, "", ""),
                 lastUpdate = 0

@@ -17,14 +17,9 @@ import com.elieomatuku.data.source.location.LocationRemoteDataStore
 import com.elieomatuku.data.source.weather.WeatherCacheDataStore
 import com.elieomatuku.data.source.weather.WeatherDataStoreFactory
 import com.elieomatuku.data.source.weather.WeatherRemoteDataStore
-import com.elieomatuku.domain.interactor.location.GetCurrentLocation
-import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
-import com.elieomatuku.domain.interactor.location.GetLocationDetails
-import com.elieomatuku.domain.interactor.location.SaveFavouriteLocation
-import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
-import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.domain.repository.LocationRepository
 import com.elieomatuku.domain.repository.WeatherRepository
+import com.elieomatuku.presentation.injection.PresentationKodeinModule
 import com.elieomatuku.remote.LocationRemoteImpl
 import com.elieomatuku.remote.WeatherRemoteImpl
 import com.elieomatuku.remote.api.LocationApi
@@ -51,6 +46,19 @@ fun depInject(app: Application): Kodein {
         bind<Resources>() with instance(app.applicationContext.resources)
         bind<OkHttpClient>() with singleton {
             val clientBuilder = OkHttpClient.Builder()
+                .addNetworkInterceptor { chain ->
+                    val original = chain.request()
+                    val url = original.url.newBuilder()
+                        .addQueryParameter("appid", BuildConfig.WEATHER_APIKEY)
+                        .build()
+
+                    val request = original.newBuilder()
+                        .method(original.method, original.body)
+                        .url(url)
+                        .build()
+
+                    chain.proceed(request)
+                }
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -136,28 +144,6 @@ fun depInject(app: Application): Kodein {
             WeatherRepositoryImpl(instance())
         }
 
-        bind<GetCurrentLocation>() with singleton {
-            GetCurrentLocation(instance())
-        }
-
-        bind<GetFavouriteLocations>() with singleton {
-            GetFavouriteLocations(instance())
-        }
-
-        bind<GetLocationDetails>() with singleton {
-            GetLocationDetails(instance())
-        }
-
-        bind<SaveFavouriteLocation>() with singleton {
-            SaveFavouriteLocation(instance())
-        }
-
-        bind<GetLocationCurrentWeather>() with singleton {
-            GetLocationCurrentWeather(instance())
-        }
-
-        bind<GetLocationFiveDayForecast>() with singleton {
-            GetLocationFiveDayForecast(instance())
-        }
+        importOnce(PresentationKodeinModule.getModule())
     }
 }
