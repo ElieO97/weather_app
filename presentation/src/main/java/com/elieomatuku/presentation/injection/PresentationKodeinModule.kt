@@ -7,7 +7,7 @@ import com.elieomatuku.domain.interactor.location.GetLocationDetails
 import com.elieomatuku.domain.interactor.location.SaveFavouriteLocation
 import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
-import com.elieomatuku.presentation.ui.home.WeatherViewModel
+import com.elieomatuku.presentation.ui.weather.WeatherViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance

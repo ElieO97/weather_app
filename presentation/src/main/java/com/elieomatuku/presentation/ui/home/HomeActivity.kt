@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import com.elieomatuku.presentation.ui.weather.WeatherFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_home.*
@@ -20,8 +21,6 @@ import timber.log.Timber
 class HomeActivity : BaseActivity(R.layout.activity_home) {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    private val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +67,6 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     Timber.d("location: lat = ${location?.latitude}, long = ${location?.latitude} ")
-                    viewModel.getLocationCurrentWeather(location?.latitude!!, location?.longitude)
                 }
         }
     }

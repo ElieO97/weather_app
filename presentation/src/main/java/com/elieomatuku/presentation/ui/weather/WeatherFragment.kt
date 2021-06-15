@@ -1,4 +1,4 @@
-package com.elieomatuku.presentation.ui.home
+package com.elieomatuku.presentation.ui.weather
 
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseFragment
@@ -13,4 +13,6 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
             return WeatherFragment()
         }
     }
+
+    private val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
 }

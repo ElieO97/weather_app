@@ -1,4 +1,4 @@
-package com.elieomatuku.presentation.ui.home
+package com.elieomatuku.presentation.ui.weather
 
 import com.elieomatuku.domain.model.Weather
 
