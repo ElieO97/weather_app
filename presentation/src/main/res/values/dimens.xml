@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header_container_height">300dp</dimen>
+    <dimen name="big_label_size">70sp</dimen>
+    <dimen name="medium_label_size">40sp</dimen>
+</resources>

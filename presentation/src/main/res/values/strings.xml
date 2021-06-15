@@ -2,4 +2,7 @@
 <!--    <string name="app_name">weather_app</string>-->
     <string name="favourites">Favourites</string>
     <string name="open_map">Open Map</string>
+    <string name="sunny">Sunny</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="rainy">Rainy</string>
 </resources>

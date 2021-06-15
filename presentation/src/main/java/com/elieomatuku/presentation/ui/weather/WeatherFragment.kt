@@ -13,8 +13,17 @@ import kotlinx.android.synthetic.main.fragment_weather.*
 
 class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     companion object {
-        fun newInstance(): WeatherFragment {
-            return WeatherFragment()
+        const val LONG = "long"
+        const val LAT = "lat"
+
+        fun newInstance(lat: Double, long: Double): WeatherFragment {
+            val fragment = WeatherFragment()
+            val args = Bundle()
+            args.putDouble(LAT, lat)
+            args.putDouble(LONG, long)
+
+            fragment.arguments = args
+            return fragment
         }
     }
 
@@ -23,14 +32,17 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getLocationCurrentWeather(-33.9285191, 18.4312705)
+        val long = arguments?.getDouble(LONG) ?: 0.0
+        val lat = arguments?.getDouble(LAT) ?: 0.0
+
+        viewModel.getLocationCurrentWeather(lat, long)
 
         viewModel.viewState.observe(viewLifecycleOwner) {
 
             val weather = it.weather
             if (weather != null) {
 
-                temperatureTv.text = "${weather.temperature}\u00B0"
+                temperatureTv.text = "${weather.temperature.toInt()}\u00B0"
 
                 val backgroundRes = when (weather.weatherCondition) {
                     WeatherCondition.Sunny -> R.mipmap.forest_sunny
@@ -40,6 +52,22 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 }
 
                 headerContainer.setBackgroundResource(backgroundRes)
+
+                val weatherConditionRes = when (weather.weatherCondition) {
+                    WeatherCondition.Sunny -> R.string.sunny
+                    WeatherCondition.Cloudy -> R.string.cloudy
+                    WeatherCondition.Rainy -> R.string.rainy
+                    else -> R.string.sunny
+                }
+                weatherConditionTv.text = getString(weatherConditionRes)
+
+                val backgroundColorRes = when (weather.weatherCondition) {
+                    WeatherCondition.Sunny -> R.color.sunny
+                    WeatherCondition.Cloudy -> R.color.cloudy
+                    WeatherCondition.Rainy -> R.color.rainy
+                    else -> R.string.sunny
+                }
+                rootView.setBackgroundResource(backgroundColorRes)
             }
         }
     }

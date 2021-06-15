@@ -28,14 +28,10 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.navHostContainer, WeatherFragment.newInstance())
-                .commit()
-        }
+        supportActionBar?.elevation = 0f
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        Timber.d("fusedLocationClient = $fusedLocationClient")
 
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -67,6 +63,18 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     Timber.d("location: lat = ${location?.latitude}, long = ${location?.longitude} ")
+
+                    location?.let {
+                        supportFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.navHostContainer,
+                                WeatherFragment.newInstance(
+                                    it.latitude,
+                                    it.longitude
+                                )
+                            )
+                            .commit()
+                    }
                 }
         }
     }
