@@ -4,6 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.elieomatuku.presentation.extensions.getViewModel
 import com.elieomatuku.presentation.extensions.lifecycleAwareLazy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -23,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity, KodeinAware {
     val viewModelFactory: ViewModelProvider.Factory by instance()
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
-        ViewModelProvider(this).get(VM::class.java)
+        getViewModel(viewModelFactory)
 
     protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> {
         return lifecycleAwareLazy(this) { getViewModel<VM>() }

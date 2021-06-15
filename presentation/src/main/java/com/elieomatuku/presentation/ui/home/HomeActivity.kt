@@ -6,15 +6,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.kodein.di.generic.instance
 import timber.log.Timber
 
 /**
@@ -24,7 +20,8 @@ import timber.log.Timber
 class HomeActivity : BaseActivity(R.layout.activity_home) {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val getLocationCurrentWeather: GetLocationCurrentWeather by instance()
+
+    private val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,9 +68,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     Timber.d("location: lat = ${location?.latitude}, long = ${location?.latitude} ")
-                    GlobalScope.launch {
-                        getLocationCurrentWeather.execute(GetLocationCurrentWeather.Input(location?.latitude!!, location.longitude))
-                    }
+                    viewModel.getLocationCurrentWeather(location?.latitude!!, location?.longitude)
                 }
         }
     }

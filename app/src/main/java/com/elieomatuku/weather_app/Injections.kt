@@ -27,6 +27,7 @@ import com.elieomatuku.remote.api.WeatherApi
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import org.kodein.di.Kodein
+import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
@@ -41,7 +42,7 @@ import java.util.concurrent.TimeUnit
 fun depInject(app: Application): Kodein {
 
     return Kodein.lazy {
-        bind<Application>() with instance(app)
+        import(androidXModule(app))
         bind<Context>() with instance(app.applicationContext)
         bind<Resources>() with instance(app.applicationContext.resources)
         bind<OkHttpClient>() with singleton {

@@ -4,6 +4,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.elieomatuku.presentation.extensions.getSharedViewModel
+import com.elieomatuku.presentation.extensions.getViewModel
 import com.elieomatuku.presentation.extensions.lifecycleAwareLazy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -23,10 +25,10 @@ abstract class BaseFragment : Fragment, KodeinAware {
     val viewModelFactory: ViewModelProvider.Factory by instance()
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
-        ViewModelProvider(this).get(VM::class.java)
+        getViewModel(viewModelFactory)
 
     protected inline fun <reified VM : ViewModel> getSharedViewModel(): VM =
-        ViewModelProvider(requireActivity()).get(VM::class.java)
+        getSharedViewModel(viewModelFactory)
 
     protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
         getViewModel<VM>()
