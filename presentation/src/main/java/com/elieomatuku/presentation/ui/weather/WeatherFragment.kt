@@ -42,7 +42,10 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
             val weather = it.weather
             if (weather != null) {
 
-                temperatureTv.text = "${weather.temperature.toInt()}\u00B0"
+                temperatureTv.text = getDegreeAnnotation(weather.temperature.toInt())
+                minTv.text = getDegreeAnnotation(weather.minimumTemperature.toInt())
+                maxTv.text = getDegreeAnnotation(weather.maximumTemperature.toInt())
+                currentTv.text = getDegreeAnnotation(weather.temperature.toInt())
 
                 val backgroundRes = when (weather.weatherCondition) {
                     WeatherCondition.Sunny -> R.mipmap.forest_sunny
@@ -70,5 +73,9 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 rootView.setBackgroundResource(backgroundColorRes)
             }
         }
+    }
+
+    private fun getDegreeAnnotation(value: Int): String {
+        return "${value}\u00B0"
     }
 }
