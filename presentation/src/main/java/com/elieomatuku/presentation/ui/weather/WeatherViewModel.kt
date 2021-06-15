@@ -6,7 +6,6 @@ import com.elieomatuku.domain.interactor.Success
 import com.elieomatuku.domain.interactor.runUseCase
 import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
 import com.elieomatuku.presentation.ui.base.BaseViewModel
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 /**
@@ -17,10 +16,6 @@ class WeatherViewModel(private val getLocationCurrentWeather: GetLocationCurrent
     BaseViewModel<WeatherViewState>(WeatherViewState()) {
 
     fun getLocationCurrentWeather(lat: Double, long: Double) {
-        GlobalScope.launch {
-            getLocationCurrentWeather.execute(GetLocationCurrentWeather.Input(lat, long))
-        }
-
         viewModelScope.launch {
             state = state.copy(isLoading = true)
             val result =
