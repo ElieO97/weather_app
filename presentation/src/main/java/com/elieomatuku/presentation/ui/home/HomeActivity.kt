@@ -66,7 +66,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
 
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
-                    Timber.d("location: lat = ${location?.latitude}, long = ${location?.latitude} ")
+                    Timber.d("location: lat = ${location?.latitude}, long = ${location?.longitude} ")
                 }
         }
     }

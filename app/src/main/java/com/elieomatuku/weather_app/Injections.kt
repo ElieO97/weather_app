@@ -51,6 +51,7 @@ fun depInject(app: Application): Kodein {
                     val original = chain.request()
                     val url = original.url.newBuilder()
                         .addQueryParameter("appid", BuildConfig.WEATHER_APIKEY)
+                        .addEncodedQueryParameter("units", "metric")
                         .build()
 
                     val request = original.newBuilder()
