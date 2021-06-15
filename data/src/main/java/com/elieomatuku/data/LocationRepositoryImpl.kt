@@ -11,7 +11,12 @@ import com.elieomatuku.domain.repository.LocationRepository
 
 class LocationRepositoryImpl(private val factory: LocationDataStoreFactory) : LocationRepository {
     override suspend fun getCurrentLocation(lat: Double, long: Double): Location {
-        return factory.retrieveDataStore().getCurrentLocation(lat, long).let(LocationEntity::toLocation)
+        try {
+            return factory.retrieveDataStore().getCurrentLocation(lat, long)
+                .let(LocationEntity::toLocation)
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun getFavouritesLocations(): List<Location> {
