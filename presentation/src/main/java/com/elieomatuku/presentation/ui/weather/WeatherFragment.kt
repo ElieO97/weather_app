@@ -53,7 +53,6 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                     WeatherCondition.Rainy -> R.mipmap.forest_rainy
                     else -> R.mipmap.forest_sunny
                 }
-
                 headerContainer.setBackgroundResource(backgroundRes)
 
                 val weatherConditionRes = when (weather.weatherCondition) {
