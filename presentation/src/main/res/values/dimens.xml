@@ -2,11 +2,14 @@
 <resources>
     <dimen name="header_container_height">300dp</dimen>
     <dimen name="margin">16dp</dimen>
+    <dimen name="medium_margin">20dp</dimen>
 
     <dimen name="loader">72dp</dimen>
 
     <dimen name="big_label_size">72sp</dimen>
     <dimen name="medium_label_size">32sp</dimen>
     <dimen name="small_label_size">16sp</dimen>
+
+    <dimen name="small_icon">32dp</dimen>
 
 </resources>

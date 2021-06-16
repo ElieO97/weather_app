@@ -7,11 +7,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_weather.*
-import timber.log.Timber
 import kotlin.properties.Delegates
 
 /**
@@ -37,6 +38,12 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     protected val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
     private var long by Delegates.notNull<Double>()
     private var lat by Delegates.notNull<Double>()
+
+    private val forecastRv: RecyclerView by lazy {
+        val view = forecastRV
+        view.layoutManager = LinearLayoutManager(requireContext())
+        view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -86,7 +93,7 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 separatorView.isVisible = false
             }
 
-            Timber.d("forecast = ${it.forecast}")
+            forecastRv.adapter = ForecastAdapter(it.forecast)
         }
 
         refreshLayout.setOnRefreshListener {
