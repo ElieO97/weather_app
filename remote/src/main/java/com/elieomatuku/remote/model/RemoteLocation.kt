@@ -19,7 +19,7 @@ data class RemoteLocation(
             return LocationEntity(
                 name = remoteLocation.name ?: "",
                 latitude = remoteLocation.coord?.lat ?: 0.0,
-                longitude = remoteLocation.coord?.long ?: 0.0
+                longitude = remoteLocation.coord?.lon ?: 0.0
             )
         }
     }

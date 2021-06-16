@@ -27,14 +27,14 @@ data class RemoteWeather(
                 maximumTemperature = remoteWeather.main?.temp_max ?: 0.0,
                 location = LocationEntity(
                     name = remoteWeather.name ?: "",
-                    longitude = remoteWeather.coord?.long ?: 0.0,
+                    longitude = remoteWeather.coord?.lon ?: 0.0,
                     latitude = remoteWeather.coord?.lat ?: 0.0,
                 ),
                 date = remoteWeather.dt ?: 0,
                 weatherConditionEntity = remoteWeather.weather.first()?.let(
                     WeatherCondition::toWeatherConditionEntity
                 ) ?: WeatherConditionEntity(0, "", ""),
-                lastUpdatedInMilliseconds = 0
+                lastUpdatedInMilliseconds = System.currentTimeMillis()
             )
         }
     }
