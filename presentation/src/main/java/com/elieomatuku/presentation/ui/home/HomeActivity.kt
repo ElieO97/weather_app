@@ -52,7 +52,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
                                     it.longitude
                                 )
                             )
-                            .commit()
+                            .commitAllowingStateLoss()
                     }
                 }
         }

@@ -2,6 +2,7 @@ package com.elieomatuku.presentation.ui.weather
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseFragment
@@ -43,6 +44,7 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
         viewModel.viewState.observe(viewLifecycleOwner) {
 
             refreshLayout.isRefreshing = false
+            progressBar.isVisible = it.isLoading
 
             val weather = it.weather
             if (weather != null) {
