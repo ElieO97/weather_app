@@ -13,8 +13,15 @@ class WeatherRemoteDataStore(private val weatherRemote: WeatherRemote) : Weather
         return weatherRemote.getLocationCurrentWeather(lat, long)
     }
 
-    override suspend fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
+    override suspend fun getLocationWeatherFiveDayForecast(
+        lat: Double,
+        long: Double
+    ): List<WeatherEntity> {
         return weatherRemote.getLocationWeatherFiveDayForecast(lat, long)
+    }
+
+    override suspend fun saveCurrentWeather(weatherEntity: WeatherEntity) {
+        throw UnsupportedOperationException()
     }
 
     override suspend fun clearAllWeather() {

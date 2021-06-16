@@ -13,8 +13,8 @@ class WeatherDataStoreFactory(
     private val weatherRemoteDataStore: WeatherRemoteDataStore
 ) {
 
-    fun retrieveDataStore(): WeatherDataStore {
-        return if (weatherCache.isCached() && !weatherCache.isExpired()) {
+    fun retrieveDataStore(lat: Double, long: Double): WeatherDataStore {
+        return if (weatherCache.isCached(lat, long) && !weatherCache.isExpired(lat, long)) {
             retrieveCacheDataStore()
         } else {
             retrieveRemoteDataStore()

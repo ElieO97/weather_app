@@ -13,8 +13,15 @@ class WeatherCacheDataStore(private val weatherCache: WeatherCache) : WeatherDat
         return weatherCache.getLocationCurrentWeather(lat, long)
     }
 
-    override suspend fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
+    override suspend fun getLocationWeatherFiveDayForecast(
+        lat: Double,
+        long: Double
+    ): List<WeatherEntity> {
         return weatherCache.getLocationWeatherFiveDayForecast(lat, long)
+    }
+
+    override suspend fun saveCurrentWeather(weatherEntity: WeatherEntity) {
+        weatherCache.saveWeather(weatherEntity, currentWeather = true)
     }
 
     override suspend fun clearAllWeather() {

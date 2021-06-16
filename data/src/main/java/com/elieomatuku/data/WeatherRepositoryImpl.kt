@@ -2,6 +2,7 @@ package com.elieomatuku.data
 
 import com.elieomatuku.data.model.WeatherEntity
 import com.elieomatuku.data.source.weather.WeatherDataStoreFactory
+import com.elieomatuku.data.source.weather.WeatherRemoteDataStore
 import com.elieomatuku.domain.model.Weather
 import com.elieomatuku.domain.repository.WeatherRepository
 
@@ -11,7 +12,14 @@ import com.elieomatuku.domain.repository.WeatherRepository
 
 class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : WeatherRepository {
     override suspend fun getLocationCurrentWeather(lat: Double, long: Double): Weather {
-        return factory.retrieveDataStore().getLocationCurrentWeather(lat, long).let(WeatherEntity::toWeather)
+        val dataStore = factory.retrieveDataStore(lat, long)
+        val weatherEntity = dataStore.getLocationCurrentWeather(lat, long)
+
+        if (dataStore is WeatherRemoteDataStore) {
+            factory.retrieveCacheDataStore().saveCurrentWeather(weatherEntity)
+        }
+
+        return weatherEntity.let(WeatherEntity::toWeather)
     }
 
     override suspend fun getLocationWeatherFiveDayForecast(
@@ -19,9 +27,10 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
         long: Double
     ): List<Weather> {
 
-        return factory.retrieveDataStore().getLocationWeatherFiveDayForecast(lat, long).map {
-            val weather: Weather = WeatherEntity.toWeather(it)
-            weather
-        }
+        return factory.retrieveDataStore(lat, long).getLocationWeatherFiveDayForecast(lat, long)
+            .map {
+                val weather: Weather = WeatherEntity.toWeather(it)
+                weather
+            }
     }
 }

@@ -11,7 +11,7 @@ import com.elieomatuku.data.repository.weather.WeatherCache
 
 class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
     companion object {
-        const val STALE_MS = 360 // Data is stale after a 1min
+        const val STALE_MS = 1800 // Data is stale after a 5min
     }
 
     override fun clearAllWeather() {
@@ -36,7 +36,7 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
         } ?: true
     }
 
-    override fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity? {
+    override fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity {
         val cacheWeather = weatherDao.getLocationCurrentWeather(lat, long)
         return cacheWeather.let(CachedWeather::toWeatherEntity)
     }
