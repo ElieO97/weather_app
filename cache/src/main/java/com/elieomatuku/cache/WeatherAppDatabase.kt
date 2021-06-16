@@ -6,7 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.elieomatuku.cache.location.CachedLocation
+import com.elieomatuku.cache.location.LocationDao
 import com.elieomatuku.cache.weather.CachedWeather
+import com.elieomatuku.cache.weather.WeatherDao
 
 /**
  * Created by elieomatuku on 2021-06-12
@@ -14,6 +16,9 @@ import com.elieomatuku.cache.weather.CachedWeather
 
 @Database(entities = [CachedLocation::class, CachedWeather::class], version = 1)
 abstract class WeatherAppDatabase : RoomDatabase() {
+
+    abstract fun weatherDao(): WeatherDao
+    abstract fun locationDao(): LocationDao
 
     companion object {
         private const val DB_NAME = "weather_app_db"
