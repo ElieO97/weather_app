@@ -13,6 +13,10 @@ class LocationRemoteDataStore(private val locationRemote: LocationRemote) : Loca
         throw UnsupportedOperationException()
     }
 
+    override suspend fun saveCurrentLocation(location: LocationEntity) {
+        throw UnsupportedOperationException()
+    }
+
     override suspend fun saveFavouriteLocation(location: LocationEntity) {
         throw UnsupportedOperationException()
     }

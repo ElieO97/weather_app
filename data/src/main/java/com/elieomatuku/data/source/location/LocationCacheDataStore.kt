@@ -13,6 +13,10 @@ class LocationCacheDataStore(private val locationCache: LocationCache) : Locatio
         locationCache.clearAllLocations()
     }
 
+    override suspend fun saveCurrentLocation(location: LocationEntity) {
+        locationCache.saveCurrentLocation(location)
+    }
+
     override suspend fun saveFavouriteLocation(location: LocationEntity) {
         locationCache.saveFavouriteLocation(location)
     }

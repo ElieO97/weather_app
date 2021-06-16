@@ -10,11 +10,13 @@ interface LocationCache {
 
     fun clearAllLocations()
 
-    fun isCached(): Boolean
+    fun isCached(lat: Double, long: Double): Boolean
 
-    fun isExpired(): Boolean
+    fun isExpiredCurrentLocation(lat: Double, long: Double): Boolean
 
     fun saveFavouriteLocation(location: LocationEntity)
+
+    fun saveCurrentLocation(location: LocationEntity)
 
     fun deleteFavouriteLocation(location: LocationEntity)
 

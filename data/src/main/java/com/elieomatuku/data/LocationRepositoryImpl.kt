@@ -2,6 +2,7 @@ package com.elieomatuku.data
 
 import com.elieomatuku.data.model.LocationEntity
 import com.elieomatuku.data.source.location.LocationDataStoreFactory
+import com.elieomatuku.data.source.location.LocationRemoteDataStore
 import com.elieomatuku.domain.model.Location
 import com.elieomatuku.domain.repository.LocationRepository
 
@@ -12,15 +13,24 @@ import com.elieomatuku.domain.repository.LocationRepository
 class LocationRepositoryImpl(private val factory: LocationDataStoreFactory) : LocationRepository {
     override suspend fun getCurrentLocation(lat: Double, long: Double): Location {
         try {
-            return factory.retrieveDataStore().getCurrentLocation(lat, long)
-                .let(LocationEntity::toLocation)
+            val dataStore = factory.retrieveCurrentLocationDataStore(lat, long)
+            val locationEntity = dataStore.getCurrentLocation(lat, long)
+
+            if (dataStore is LocationRemoteDataStore) {
+                factory.retrieveCacheDataStore().saveCurrentLocation(locationEntity)
+            }
+
+            return locationEntity.let(LocationEntity::toLocation)
         } catch (e: Exception) {
             throw e
         }
     }
 
     override suspend fun getFavouritesLocations(): List<Location> {
-        TODO("Not yet implemented")
+        val locations = factory.retrieveCacheDataStore().getFavouriteLocations()
+        return locations.map {
+            LocationEntity.toLocation(it)
+        }
     }
 
     override suspend fun getLocationDetails(lat: Double, long: Double): Location {
@@ -28,11 +38,11 @@ class LocationRepositoryImpl(private val factory: LocationDataStoreFactory) : Lo
     }
 
     override suspend fun saveFavouriteLocation(location: Location) {
-        TODO("Not yet implemented")
+        factory.retrieveCacheDataStore().saveFavouriteLocation(location.let(LocationEntity::fromLocation))
     }
 
     override suspend fun deleteFavouriteLocation(location: Location) {
-        TODO("Not yet implemented")
+        factory.retrieveCacheDataStore().deleteFavouriteLocation(location.let(LocationEntity::fromLocation))
     }
 
     override suspend fun searchLocation(name: String): List<Location> {

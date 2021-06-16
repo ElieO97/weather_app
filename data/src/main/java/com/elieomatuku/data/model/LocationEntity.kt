@@ -19,5 +19,13 @@ data class LocationEntity(
                 longitude = locationEntity.longitude
             )
         }
+
+        fun fromLocation(location: Location): LocationEntity {
+            return LocationEntity(
+                name = location.name,
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
+        }
     }
 }

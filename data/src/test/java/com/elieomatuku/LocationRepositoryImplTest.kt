@@ -53,11 +53,7 @@ class LocationRepositoryImplTest {
         runBlocking {
             doReturn(
                 true
-            ).`when`(mockLocationCache).isCached()
-
-            doReturn(
-                false
-            ).`when`(mockLocationCache).isExpired()
+            ).`when`(mockLocationCache).isCached(any(), any())
 
             doReturn(
                 LocationEntity(
@@ -95,11 +91,7 @@ class LocationRepositoryImplTest {
         runBlocking {
             doReturn(
                 false
-            ).`when`(mockLocationCache).isCached()
-
-            doReturn(
-                true
-            ).`when`(mockLocationCache).isExpired()
+            ).`when`(mockLocationCache).isCached(any(), any())
 
             doReturn(
                 LocationEntity(

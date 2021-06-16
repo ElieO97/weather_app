@@ -13,11 +13,19 @@ class LocationDataStoreFactory(
     private val locationRemoteDataStore: LocationRemoteDataStore
 ) {
 
-    fun retrieveDataStore(): LocationDataStore {
-        return if (locationCache.isCached() && !locationCache.isExpired()) {
+    fun retrieveDataStore(lat: Double, long: Double): LocationDataStore {
+        return if (locationCache.isCached(lat, long)) {
             retrieveCacheDataStore()
         } else {
             retrieveRemoteDataStore()
+        }
+    }
+
+    fun retrieveCurrentLocationDataStore(lat: Double, long: Double): LocationDataStore {
+        return if (locationCache.isExpiredCurrentLocation(lat, long)) {
+            retrieveDataStore(lat, long)
+        } else {
+            retrieveCacheDataStore()
         }
     }
 

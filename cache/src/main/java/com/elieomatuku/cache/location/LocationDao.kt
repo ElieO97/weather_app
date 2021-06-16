@@ -19,8 +19,14 @@ interface LocationDao {
     fun getFavouritesLocations(): List<CachedLocation>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveFavouriteLocation(cachedLocation: CachedLocation)
+    fun saveLocation(cachedLocation: CachedLocation)
+
+    @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where latitude = :lat and longitude = :long  LIMIT 1")
+    fun getLocation(lat: Double, long: Double): CachedLocation?
 
     @Query("DELETE FROM ${CachedLocation.LOCATION_TABLE} WHERE latitude = :lat And longitude = :long")
     fun deleteFavouriteLocation(lat: Double, long: Double)
+
+    @Query("DELETE FROM ${CachedLocation.LOCATION_TABLE}")
+    fun deleteAll()
 }

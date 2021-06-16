@@ -1,5 +1,6 @@
 package com.elieomatuku.cache
 
+import com.elieomatuku.cache.location.CachedLocation
 import com.elieomatuku.cache.location.LocationDao
 import com.elieomatuku.data.model.LocationEntity
 import com.elieomatuku.data.repository.location.LocationCache
@@ -8,32 +9,44 @@ import com.elieomatuku.data.repository.location.LocationCache
  * Created by elieomatuku on 2021-06-13
  */
 
-class LocationCacheImpl(locationDao: LocationDao) : LocationCache {
+class LocationCacheImpl(private val locationDao: LocationDao) : LocationCache {
     override fun clearAllLocations() {
-        TODO("Not yet implemented")
+        locationDao.deleteAll()
     }
 
-    override fun isCached(): Boolean {
-        return false
-    }
-
-    override fun isExpired(): Boolean {
-        return true
+    override fun isCached(lat: Double, long: Double): Boolean {
+        val cachedLocation: CachedLocation? = locationDao.getLocation(lat, long)
+        return cachedLocation != null
     }
 
     override fun saveFavouriteLocation(location: LocationEntity) {
-        TODO("Not yet implemented")
+        val cachedLocation = CachedLocation.toCacheLocation(location, favouriteLocation = true)
+        locationDao.saveLocation(cachedLocation)
+    }
+
+    override fun saveCurrentLocation(location: LocationEntity) {
+        val cachedLocation = CachedLocation.toCacheLocation(location, currentLocation = true)
+        locationDao.saveLocation(cachedLocation)
     }
 
     override fun deleteFavouriteLocation(location: LocationEntity) {
-        TODO("Not yet implemented")
+        locationDao.deleteFavouriteLocation(location.latitude, location.longitude)
     }
 
     override fun getCurrentLocation(): LocationEntity {
-        TODO("Not yet implemented")
+        val currentLocation = locationDao.getCurrentLocation()
+        return currentLocation.let(CachedLocation::toLocationEntity)
     }
 
     override fun getFavouriteLocations(): List<LocationEntity> {
-        TODO("Not yet implemented")
+        val currentLocation = locationDao.getFavouritesLocations()
+        return currentLocation.map {
+            CachedLocation.toLocationEntity(it)
+        }
+    }
+
+    override fun isExpiredCurrentLocation(lat: Double, long: Double): Boolean {
+        val currentLocation = getCurrentLocation()
+        return ((lat != currentLocation.latitude) && (long != currentLocation.longitude))
     }
 }

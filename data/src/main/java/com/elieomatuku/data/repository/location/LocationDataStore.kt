@@ -10,6 +10,8 @@ interface LocationDataStore {
 
     suspend fun clearAllLocations()
 
+    suspend fun saveCurrentLocation(location: LocationEntity)
+
     suspend fun saveFavouriteLocation(location: LocationEntity)
 
     suspend fun deleteFavouriteLocation(location: LocationEntity)
