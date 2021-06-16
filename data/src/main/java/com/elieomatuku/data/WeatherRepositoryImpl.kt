@@ -44,11 +44,12 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
             val weatherEntities = dataStore.getLocationWeatherFiveDayForecast(lat, long).map {
                 val location = it.location.copy(latitude = lat, longitude = long)
                 it.copy(location = location)
-            }
+            }.sortedBy { it.date }
 
             if (dataStore is WeatherRemoteDataStore) {
                 factory.retrieveCacheDataStore().saveLocationWeatherFiveDayForecast(weatherEntities)
             }
+
             return weatherEntities
                 .map {
                     val weather: Weather = WeatherEntity.toWeather(it)
@@ -58,11 +59,12 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
             if (factory.isCached(lat, long)) {
                 val weatherEntities =
                     factory.retrieveCacheDataStore().getLocationWeatherFiveDayForecast(lat, long)
+
                 return weatherEntities
                     .map {
                         val weather: Weather = WeatherEntity.toWeather(it)
                         weather
-                    }
+                    }.sortedBy { it.date }
             } else {
                 throw e
             }
