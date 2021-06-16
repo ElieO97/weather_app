@@ -57,11 +57,11 @@ class WeatherRepositoryImplTest {
         runBlocking {
             doReturn(
                 true
-            ).`when`(mockWeatherCache).isCached()
+            ).`when`(mockWeatherCache).isCached(any(), any())
 
             doReturn(
                 false
-            ).`when`(mockWeatherCache).isExpired()
+            ).`when`(mockWeatherCache).isExpired(any(), any())
 
             doReturn(
                 WeatherEntity(
@@ -75,7 +75,7 @@ class WeatherRepositoryImplTest {
                         89.0
                     ),
                     date = 1245955959,
-                    lastUpdate = 3388339304494
+                    lastUpdatedInMilliseconds = 3388339304494
                 )
 
             ).`when`(mockWeatherCache).getLocationCurrentWeather(any(), any())
@@ -92,7 +92,7 @@ class WeatherRepositoryImplTest {
                         89.0
                     ),
                     date = 1245955959,
-                    lastUpdate = 3388339304494
+                    lastUpdatedInMilliseconds = 3388339304494
                 )
 
             ).`when`(mockWeatherRemote).getLocationCurrentWeather(any(), any())
@@ -122,11 +122,11 @@ class WeatherRepositoryImplTest {
         runBlocking {
             doReturn(
                 false
-            ).`when`(mockWeatherCache).isCached()
+            ).`when`(mockWeatherCache).isCached(any(), any())
 
             doReturn(
                 true
-            ).`when`(mockWeatherCache).isExpired()
+            ).`when`(mockWeatherCache).isExpired(any(), any())
 
             doReturn(
                 WeatherEntity(
@@ -140,7 +140,7 @@ class WeatherRepositoryImplTest {
                         89.0
                     ),
                     date = 1245955959,
-                    lastUpdate = 3388339304494
+                    lastUpdatedInMilliseconds = 3388339304494
                 )
 
             ).`when`(mockWeatherCache).getLocationCurrentWeather(any(), any())
@@ -157,7 +157,7 @@ class WeatherRepositoryImplTest {
                         89.0
                     ),
                     date = 1245955959,
-                    lastUpdate = 3388339304494
+                    lastUpdatedInMilliseconds = 3388339304494
                 )
 
             ).`when`(mockWeatherRemote).getLocationCurrentWeather(any(), any())

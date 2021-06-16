@@ -13,7 +13,7 @@ data class WeatherEntity(
     val location: LocationEntity,
     val date: Long,
     val weatherConditionEntity: WeatherConditionEntity,
-    val lastUpdate: Long,
+    val lastUpdatedInMilliseconds: Long,
 ) {
 
     companion object {
@@ -25,7 +25,7 @@ data class WeatherEntity(
                 location = weatherEntity.location.let(LocationEntity::toLocation),
                 date = weatherEntity.date,
                 weatherCondition = weatherEntity.weatherConditionEntity.let(WeatherConditionEntity::toWeatherCondition),
-                lastUpdate = weatherEntity.lastUpdate
+                lastUpdate = weatherEntity.lastUpdatedInMilliseconds
             )
         }
     }

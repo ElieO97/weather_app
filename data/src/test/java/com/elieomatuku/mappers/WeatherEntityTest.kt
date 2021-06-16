@@ -26,7 +26,7 @@ class WeatherEntityTest {
                 location = LocationEntity("Cape Town", 80.0, 73.0),
                 date = 123484,
                 weatherConditionEntity = WeatherConditionEntity(800, "sunny", "sunny"),
-                lastUpdate = 13994449
+                lastUpdatedInMilliseconds = 13994449
             )
         val weather = Weather(
             21.0,

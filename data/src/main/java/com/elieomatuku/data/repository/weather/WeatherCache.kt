@@ -10,11 +10,15 @@ interface WeatherCache {
 
     fun clearAllWeather()
 
-    fun isCached(): Boolean
+    fun clearWeatherForLocation(lat: Double, long: Double)
 
-    fun isExpired(): Boolean
+    fun isCached(lat: Double, long: Double): Boolean
 
-    fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity
+    fun isExpired(lat: Double, long: Double): Boolean
+
+    fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity?
 
     fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity>
+
+    fun saveWeather(weatherEntity: WeatherEntity, currentWeather: Boolean? = null)
 }

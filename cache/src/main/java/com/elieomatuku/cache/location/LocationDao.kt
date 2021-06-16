@@ -12,7 +12,7 @@ import androidx.room.Query
 @Dao
 interface LocationDao {
 
-    @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where currentLocation = 1")
+    @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where currentLocation = 1 LIMIT 1")
     fun getCurrentLocation(): CachedLocation
 
     @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where favouriteLocation = 1")

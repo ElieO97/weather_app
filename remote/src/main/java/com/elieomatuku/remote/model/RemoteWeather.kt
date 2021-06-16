@@ -34,7 +34,7 @@ data class RemoteWeather(
                 weatherConditionEntity = remoteWeather.weather.first()?.let(
                     WeatherCondition::toWeatherConditionEntity
                 ) ?: WeatherConditionEntity(0, "", ""),
-                lastUpdate = 0
+                lastUpdatedInMilliseconds = 0
             )
         }
     }
