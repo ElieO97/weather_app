@@ -11,6 +11,7 @@ import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_weather.*
+import timber.log.Timber
 import kotlin.properties.Delegates
 
 /**
@@ -84,6 +85,8 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 temperatureLayout.isVisible = false
                 separatorView.isVisible = false
             }
+
+            Timber.d("forecast = ${it.forecast}")
         }
 
         refreshLayout.setOnRefreshListener {

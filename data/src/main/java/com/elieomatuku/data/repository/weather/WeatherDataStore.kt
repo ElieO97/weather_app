@@ -13,5 +13,7 @@ interface WeatherDataStore {
 
     suspend fun saveCurrentWeather(weatherEntity: WeatherEntity)
 
+    suspend fun saveLocationWeatherFiveDayForecast(weatherEntities: List<WeatherEntity>)
+
     suspend fun clearAllWeather()
 }

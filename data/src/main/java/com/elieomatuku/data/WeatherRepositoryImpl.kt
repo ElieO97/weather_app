@@ -39,10 +39,30 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
         long: Double
     ): List<Weather> {
 
-        return factory.retrieveDataStore(lat, long).getLocationWeatherFiveDayForecast(lat, long)
-            .map {
-                val weather: Weather = WeatherEntity.toWeather(it)
-                weather
+        try {
+            val dataStore = factory.retrieveDataStore(lat, long)
+            val weatherEntities = dataStore.getLocationWeatherFiveDayForecast(lat, long)
+
+            if (dataStore is WeatherRemoteDataStore) {
+                factory.retrieveCacheDataStore().saveLocationWeatherFiveDayForecast(weatherEntities)
             }
+            return weatherEntities
+                .map {
+                    val weather: Weather = WeatherEntity.toWeather(it)
+                    weather
+                }
+        } catch (e: Exception) {
+            if (factory.isCached(lat, long)) {
+                val weatherEntities =
+                    factory.retrieveCacheDataStore().getLocationWeatherFiveDayForecast(lat, long)
+                return weatherEntities
+                    .map {
+                        val weather: Weather = WeatherEntity.toWeather(it)
+                        weather
+                    }
+            } else {
+                throw e
+            }
+        }
     }
 }

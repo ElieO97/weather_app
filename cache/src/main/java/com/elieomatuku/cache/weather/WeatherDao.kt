@@ -21,6 +21,9 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveWeather(weather: CachedWeather)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveWeathers(weathers: List<CachedWeather>)
+
     @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationLatitude = :lat And locationLongitude = :long")
     fun deleteWeatherForLocation(lat: Double, long: Double)
 

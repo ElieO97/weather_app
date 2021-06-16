@@ -22,5 +22,7 @@ interface WeatherCache {
 
     fun saveWeather(weatherEntity: WeatherEntity)
 
+    fun saveWeathers(weatherEntities: List<WeatherEntity>)
+
     fun saveLocationCurrentWeather(weatherEntity: WeatherEntity)
 }
