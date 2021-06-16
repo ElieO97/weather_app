@@ -17,7 +17,6 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 
-
 /**
  * Created by elieomatuku on 2021-06-12
  */
@@ -198,7 +197,6 @@ class GetLocationFiveDayForecastTest {
         }
     }
 
-
     @Test
     fun failure() {
         runBlocking {
@@ -221,8 +219,6 @@ class GetLocationFiveDayForecastTest {
                     )
                 )
             )
-
         }
     }
-
 }

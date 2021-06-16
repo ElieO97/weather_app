@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header_container_height">300dp</dimen>
+    <dimen name="margin">16dp</dimen>
+
+    <dimen name="big_label_size">72sp</dimen>
+    <dimen name="medium_label_size">32sp</dimen>
+    <dimen name="small_label_size">16sp</dimen>
+
+</resources>

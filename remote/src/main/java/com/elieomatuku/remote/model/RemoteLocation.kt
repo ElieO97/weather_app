@@ -1,24 +1,26 @@
 package com.elieomatuku.remote.model
 
 import androidx.annotation.Keep
+import com.elieomatuku.data.model.LocationEntity
 
 /**
  * Created by elieomatuku on 2021-06-12
  */
+
 @Keep
 data class RemoteLocation(
     val name: String?,
-    val geometry: Geometry?,
-)
+    val coord: Coordinates?,
+    val country: String?
+) {
 
-@Keep
-data class Geometry(
-    val location: GeometryCoordinates,
-    val name: String?
-)
-
-@Keep
-data class GeometryCoordinates(
-    val lat: Double?,
-    val lng: Double?
-)
+    companion object {
+        fun toLocationEntity(remoteLocation: RemoteLocation): LocationEntity {
+            return LocationEntity(
+                name = remoteLocation.name ?: "",
+                latitude = remoteLocation.coord?.lat ?: 0.0,
+                longitude = remoteLocation.coord?.lon ?: 0.0
+            )
+        }
+    }
+}
