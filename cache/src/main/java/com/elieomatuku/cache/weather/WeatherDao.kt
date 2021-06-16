@@ -13,7 +13,7 @@ import androidx.room.Query
 interface WeatherDao {
 
     @Query("SELECT * FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = 1  LIMIT 1")
-    fun getLocationCurrentWeather(lat: Double, long: Double): CachedWeather
+    fun getLocationCurrentWeather(lat: Double, long: Double): CachedWeather?
 
     @Query("SELECT * FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = null")
     fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<CachedWeather>

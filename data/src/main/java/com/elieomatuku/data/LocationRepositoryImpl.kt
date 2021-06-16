@@ -41,6 +41,10 @@ class LocationRepositoryImpl(private val factory: LocationDataStoreFactory) : Lo
         factory.retrieveCacheDataStore().saveFavouriteLocation(location.let(LocationEntity::fromLocation))
     }
 
+    override suspend fun saveCurrentLocation(location: Location) {
+        factory.retrieveCacheDataStore().saveCurrentLocation(location.let(LocationEntity::fromLocation))
+    }
+
     override suspend fun deleteFavouriteLocation(location: Location) {
         factory.retrieveCacheDataStore().deleteFavouriteLocation(location.let(LocationEntity::fromLocation))
     }

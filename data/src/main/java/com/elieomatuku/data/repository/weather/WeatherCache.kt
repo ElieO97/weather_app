@@ -16,7 +16,7 @@ interface WeatherCache {
 
     fun isExpired(lat: Double, long: Double): Boolean
 
-    fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity
+    fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity?
 
     fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity>
 
