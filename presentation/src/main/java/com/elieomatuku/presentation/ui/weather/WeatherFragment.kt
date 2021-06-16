@@ -115,7 +115,7 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 ColorDrawable(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.cloudy
+                        resColor
                     )
                 )
             )
