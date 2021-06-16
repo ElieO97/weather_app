@@ -14,6 +14,7 @@ data class RemoteWeather(
     val weather: List<WeatherCondition?>,
     val main: WeatherMain?,
     val dt: Long?,
+    val dt_txt: String?,
     val id: Long?,
     val name: String?,
     val coord: Coordinates?,
@@ -31,6 +32,28 @@ data class RemoteWeather(
                     latitude = remoteWeather.coord?.lat ?: 0.0,
                 ),
                 date = remoteWeather.dt ?: 0,
+                weatherConditionEntity = remoteWeather.weather.first()?.let(
+                    WeatherCondition::toWeatherConditionEntity
+                ) ?: WeatherConditionEntity(0, "", ""),
+                lastUpdatedInMilliseconds = System.currentTimeMillis()
+            )
+        }
+
+        fun toWeatherEntity(
+            remoteWeather: RemoteWeather,
+            remoteLocation: RemoteLocation
+        ): WeatherEntity {
+            return WeatherEntity(
+                temperature = remoteWeather.main?.temp ?: 0.0,
+                minimumTemperature = remoteWeather.main?.temp_min ?: 0.0,
+                maximumTemperature = remoteWeather.main?.temp_max ?: 0.0,
+                location = LocationEntity(
+                    name = remoteLocation.name ?: "",
+                    longitude = remoteLocation.coord?.lon ?: 0.0,
+                    latitude = remoteLocation.coord?.lat ?: 0.0,
+                ),
+                date = remoteWeather.dt ?: 0,
+                weekDay = remoteWeather.dt_txt,
                 weatherConditionEntity = remoteWeather.weather.first()?.let(
                     WeatherCondition::toWeatherConditionEntity
                 ) ?: WeatherConditionEntity(0, "", ""),

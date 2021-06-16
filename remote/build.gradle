@@ -23,4 +23,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
         exclude module: "retrofit:${versions.retrofit}"
     }
+
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:${versions.mockitoKotlin}"
+    testImplementation "com.nhaarman:expect.kt:${versions.nhaarman}"
 }

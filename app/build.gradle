@@ -37,7 +37,7 @@ android {
             buildConfigField "String", "WEATHER_APIKEY", "\"baf66fc5ff4747e6c6fc2108010ad270\""
 
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
-            buildConfigField "String", "WEATHER_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
+            buildConfigField "String", "LOCATION_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
         }
 
         beta {

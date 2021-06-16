@@ -14,6 +14,7 @@ data class WeatherEntity(
     val date: Long,
     val weatherConditionEntity: WeatherConditionEntity,
     val lastUpdatedInMilliseconds: Long,
+    val weekDay: String? = null
 ) {
 
     companion object {

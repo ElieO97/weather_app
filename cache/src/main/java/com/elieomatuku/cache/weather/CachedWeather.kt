@@ -24,6 +24,7 @@ data class CachedWeather(
     val locationLatitude: Double,
     val currentWeather: Boolean? = null,
     val date: Long,
+    val weekDay: String? = null,
     val lastUpdateInMilliseconds: Long
 ) {
     companion object {
@@ -40,6 +41,7 @@ data class CachedWeather(
                     latitude = cacheWeather.locationLatitude,
                 ),
                 date = cacheWeather.date,
+                weekDay = cacheWeather.weekDay,
                 weatherConditionEntity = WeatherConditionEntity(
                     cacheWeather.weatherConditionId,
                     cacheWeather.weatherConditionMain,
@@ -61,6 +63,7 @@ data class CachedWeather(
                 locationLongitude = weatherEntity.location.longitude,
                 locationLatitude = weatherEntity.location.latitude,
                 date = weatherEntity.date,
+                weekDay = weatherEntity.weekDay,
                 weatherConditionId = weatherEntity.weatherConditionEntity.id,
                 weatherConditionMain = weatherEntity.weatherConditionEntity.main,
                 weatherConditionDescription = weatherEntity.weatherConditionEntity.description,

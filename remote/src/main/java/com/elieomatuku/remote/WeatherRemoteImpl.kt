@@ -4,6 +4,7 @@ import com.elieomatuku.data.model.WeatherEntity
 import com.elieomatuku.data.repository.weather.WeatherRemote
 import com.elieomatuku.remote.api.RemoteException
 import com.elieomatuku.remote.api.WeatherApi
+import com.elieomatuku.remote.model.RemoteForecast
 import com.elieomatuku.remote.model.RemoteWeather
 
 /**
@@ -33,9 +34,11 @@ class WeatherRemoteImpl(private val weatherApi: WeatherApi) : WeatherRemote {
     ): List<WeatherEntity> {
         val response = weatherApi.getLocationWeatherFiveDayForecast(lat, long)
         if (response.isSuccessful) {
-            val forecastResponse = response.body()
-            return forecastResponse?.list?.map {
-                RemoteWeather.toWeatherEntity(it)
+            var forecastResponse = response.body()
+            forecastResponse = forecastResponse?.let(RemoteForecast::filterMaxTempForecasts)
+
+            return forecastResponse?.let {
+                RemoteForecast.toWeatherEntities(it)
             } ?: emptyList()
         } else {
             throw RemoteException(

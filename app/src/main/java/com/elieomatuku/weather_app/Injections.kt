@@ -45,7 +45,6 @@ fun depInject(app: Application): Kodein {
 
     return Kodein.lazy {
         import(androidXModule(app))
-//        bind<Context>() with instance(app.applicationContext)
         bind<Resources>() with instance(app.applicationContext.resources)
         bind<OkHttpClient>() with singleton {
             val clientBuilder = OkHttpClient.Builder()
