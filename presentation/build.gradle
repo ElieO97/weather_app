@@ -63,6 +63,8 @@ dependencies {
 
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefresh}"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
