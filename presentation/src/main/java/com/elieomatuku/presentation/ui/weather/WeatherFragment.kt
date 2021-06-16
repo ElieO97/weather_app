@@ -72,6 +72,9 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 rootView.setBackgroundResource(backgroundColorRes)
             }
         }
+
+        refreshLayout.setOnRefreshListener {
+        }
     }
 
     private fun getDegreeAnnotation(value: Int): String {

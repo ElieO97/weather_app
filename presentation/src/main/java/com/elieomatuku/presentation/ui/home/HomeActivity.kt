@@ -9,8 +9,6 @@ import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.weather.WeatherFragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
 
@@ -20,8 +18,6 @@ import timber.log.Timber
 
 class HomeActivity : BaseActivity(R.layout.activity_home) {
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,9 +25,6 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.elevation = 0f
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        Timber.d("fusedLocationClient = $fusedLocationClient")
 
         if (ActivityCompat.checkSelfPermission(
                 this,

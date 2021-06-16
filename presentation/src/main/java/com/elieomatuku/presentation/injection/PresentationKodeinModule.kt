@@ -1,5 +1,6 @@
 package com.elieomatuku.presentation.injection
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.elieomatuku.domain.interactor.location.GetCurrentLocation
 import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
@@ -8,6 +9,8 @@ import com.elieomatuku.domain.interactor.location.SaveFavouriteLocation
 import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.weather.WeatherViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -54,6 +57,11 @@ object PresentationKodeinModule {
 
             bindViewModel<WeatherViewModel>() with provider {
                 WeatherViewModel(instance())
+            }
+
+            bind<FusedLocationProviderClient>() with singleton {
+                val context: Context = instance()
+                LocationServices.getFusedLocationProviderClient(context)
             }
         }
     }

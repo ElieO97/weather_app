@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.elieomatuku.presentation.extensions.getViewModel
 import com.elieomatuku.presentation.extensions.lifecycleAwareLazy
+import com.google.android.gms.location.FusedLocationProviderClient
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
@@ -22,6 +23,7 @@ abstract class BaseActivity : AppCompatActivity, KodeinAware {
 
     override val kodein: Kodein by closestKodein()
     val viewModelFactory: ViewModelProvider.Factory by instance()
+    val fusedLocationClient: FusedLocationProviderClient by instance()
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)

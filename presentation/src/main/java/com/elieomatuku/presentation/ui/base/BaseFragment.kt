@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.elieomatuku.presentation.extensions.getSharedViewModel
 import com.elieomatuku.presentation.extensions.getViewModel
 import com.elieomatuku.presentation.extensions.lifecycleAwareLazy
+import com.google.android.gms.location.FusedLocationProviderClient
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -23,6 +24,7 @@ abstract class BaseFragment : Fragment, KodeinAware {
 
     override val kodein: Kodein by kodein()
     val viewModelFactory: ViewModelProvider.Factory by instance()
+    val fusedLocationClient: FusedLocationProviderClient by instance()
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)
