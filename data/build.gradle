@@ -16,6 +16,8 @@ dependencies {
 
     implementation project(':domain')
 
+    implementation "com.jakewharton.timber:timber:${versions.timber}"
+
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.mockito.kotlin:mockito-kotlin:${versions.mockitoKotlin}"
     testImplementation "com.nhaarman:expect.kt:${versions.nhaarman}"

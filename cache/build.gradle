@@ -42,9 +42,9 @@ dependencies {
 
     implementation project(':data')
 
-    implementation "androidx.room:room-runtime:${versions.room}"
+    api "androidx.room:room-runtime:${versions.room}"
     kapt "androidx.room:room-compiler:${versions.room}"
-    implementation "androidx.room:room-ktx:${versions.room}"
+    api "androidx.room:room-ktx:${versions.room}"
     testImplementation "androidx.room:room-testing:${versions.room}"
 
     testImplementation "junit:junit:${versions.junit}"

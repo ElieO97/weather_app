@@ -1,10 +1,12 @@
 package com.elieomatuku.weather_app
 
 import android.app.Application
-import android.content.Context
 import android.content.res.Resources
 import com.elieomatuku.cache.LocationCacheImpl
+import com.elieomatuku.cache.WeatherAppDatabase
 import com.elieomatuku.cache.WeatherCacheImpl
+import com.elieomatuku.cache.location.LocationDao
+import com.elieomatuku.cache.weather.WeatherDao
 import com.elieomatuku.data.LocationRepositoryImpl
 import com.elieomatuku.data.WeatherRepositoryImpl
 import com.elieomatuku.data.repository.location.LocationCache
@@ -43,7 +45,7 @@ fun depInject(app: Application): Kodein {
 
     return Kodein.lazy {
         import(androidXModule(app))
-        bind<Context>() with instance(app.applicationContext)
+//        bind<Context>() with instance(app.applicationContext)
         bind<Resources>() with instance(app.applicationContext.resources)
         bind<OkHttpClient>() with singleton {
             val clientBuilder = OkHttpClient.Builder()
@@ -98,16 +100,30 @@ fun depInject(app: Application): Kodein {
             )
         }
 
+        bind<WeatherAppDatabase>() with singleton {
+            WeatherAppDatabase.getInstance(instance())
+        }
+
+        bind<WeatherDao>() with singleton {
+            val weatherAppDatabase: WeatherAppDatabase = instance()
+            weatherAppDatabase.weatherDao()
+        }
+
+        bind<LocationDao>() with singleton {
+            val weatherAppDatabase: WeatherAppDatabase = instance()
+            weatherAppDatabase.locationDao()
+        }
+
         bind<WeatherRemote>() with singleton {
             WeatherRemoteImpl(instance())
         }
 
         bind<WeatherCache>() with singleton {
-            WeatherCacheImpl()
+            WeatherCacheImpl(instance())
         }
 
         bind<LocationCache>() with singleton {
-            LocationCacheImpl()
+            LocationCacheImpl(instance())
         }
 
         bind<LocationRemote>() with singleton {
