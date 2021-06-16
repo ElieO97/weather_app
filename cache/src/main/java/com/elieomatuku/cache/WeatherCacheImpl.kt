@@ -32,7 +32,7 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
         val currentWeather: WeatherEntity? = getLocationCurrentWeather(lat, long)
 
         return currentWeather?.let {
-            System.currentTimeMillis() - it.lastUpdatedInMilliseconds < STALE_MS
+            System.currentTimeMillis() - it.lastUpdatedInMilliseconds > STALE_MS
         } ?: true
     }
 
@@ -49,8 +49,17 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
         }
     }
 
-    override fun saveWeather(weatherEntity: WeatherEntity, currentWeather: Boolean?) {
-        val cachedWeather = CachedWeather.fromWeatherEntity(weatherEntity, currentWeather)
+    override fun saveWeather(weatherEntity: WeatherEntity) {
+        val cachedWeather = CachedWeather.fromWeatherEntity(weatherEntity)
+        weatherDao.saveWeather(cachedWeather)
+    }
+
+    override fun saveLocationCurrentWeather(weatherEntity: WeatherEntity) {
+        weatherDao.deleteCurrentWeatherForLocation(
+            weatherEntity.location.latitude,
+            weatherEntity.location.longitude
+        )
+        val cachedWeather = CachedWeather.fromWeatherEntity(weatherEntity, currentWeather = true)
         weatherDao.saveWeather(cachedWeather)
     }
 }

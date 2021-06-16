@@ -24,6 +24,9 @@ interface WeatherDao {
     @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationLatitude = :lat And locationLongitude = :long")
     fun deleteWeatherForLocation(lat: Double, long: Double)
 
+    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationLatitude = :lat And locationLongitude = :long and currentWeather = 1")
+    fun deleteCurrentWeatherForLocation(lat: Double, long: Double)
+
     @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE}")
     fun deleteAll()
 }

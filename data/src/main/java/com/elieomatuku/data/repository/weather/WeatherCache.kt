@@ -20,5 +20,7 @@ interface WeatherCache {
 
     fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity>
 
-    fun saveWeather(weatherEntity: WeatherEntity, currentWeather: Boolean? = null)
+    fun saveWeather(weatherEntity: WeatherEntity)
+
+    fun saveLocationCurrentWeather(weatherEntity: WeatherEntity)
 }
