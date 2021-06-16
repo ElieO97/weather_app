@@ -1,7 +1,11 @@
 package com.elieomatuku.presentation.ui.weather
 
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
@@ -15,8 +19,8 @@ import kotlin.properties.Delegates
 
 open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     companion object {
-        const val LONG = "long"
-        const val LAT = "lat"
+        private const val LONG = "long"
+        private const val LAT = "lat"
 
         fun newInstance(lat: Double, long: Double): WeatherFragment {
             val fragment = WeatherFragment()
@@ -75,6 +79,7 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                     else -> R.string.sunny
                 }
                 rootView.setBackgroundResource(backgroundColorRes)
+                changeStatusAndActionBarColor(backgroundColorRes)
             } else {
                 temperatureLayout.isVisible = false
                 separatorView.isVisible = false
@@ -92,5 +97,25 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
 
     private fun getDegreeAnnotation(value: Int): String {
         return "${value}\u00B0"
+    }
+
+    open fun changeStatusAndActionBarColor(resColor: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity?.window?.statusBarColor = ContextCompat.getColor(
+                requireContext(),
+                resColor
+            )
+        }
+
+        if (activity is AppCompatActivity) {
+            (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
+                ColorDrawable(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.cloudy
+                    )
+                )
+            )
+        }
     }
 }
