@@ -3,6 +3,7 @@ package com.elieomatuku.presentation.ui.weather
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import com.elieomatuku.presentation.extensions.hasLocationPermissions
 import timber.log.Timber
 
@@ -17,7 +18,30 @@ class CurrentLocationWeatherFragment : WeatherFragment() {
         }
     }
 
+    private val requestMultiplePermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            val isAccessFineLocationGranted: Boolean =
+                permissions[android.Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+            val isAccessCoarseLocationGranted: Boolean =
+                permissions[android.Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+
+            if (isAccessCoarseLocationGranted && isAccessFineLocationGranted) {
+                refreshWeather()
+            }
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        if (!hasLocationPermissions()) {
+            requestMultiplePermissions.launch(
+                arrayOf(
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                ),
+            )
+        }
+
         if (hasLocationPermissions()) {
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->

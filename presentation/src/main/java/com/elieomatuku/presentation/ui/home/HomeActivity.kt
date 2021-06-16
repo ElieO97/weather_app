@@ -2,10 +2,8 @@ package com.elieomatuku.presentation.ui.home
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
-import com.elieomatuku.presentation.extensions.hasLocationPermissions
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -23,17 +21,6 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.elevation = 0f
-
-        if (!hasLocationPermissions()) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    android.Manifest.permission.ACCESS_FINE_LOCATION,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                ),
-                98
-            )
-        }
 
         supportFragmentManager.beginTransaction()
             .replace(
