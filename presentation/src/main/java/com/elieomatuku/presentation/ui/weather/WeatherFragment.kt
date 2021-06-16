@@ -36,11 +36,6 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        long = arguments?.getDouble(LONG) ?: 0.0
-        lat = arguments?.getDouble(LAT) ?: 0.0
-
-        viewModel.getLocationCurrentWeather(lat, long)
-
         viewModel.viewState.observe(viewLifecycleOwner) {
 
             refreshLayout.isRefreshing = false
@@ -50,6 +45,9 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
             if (weather != null) {
 
                 temperatureTv.text = getDegreeAnnotation(weather.temperature.toInt())
+
+                temperatureLayout.isVisible = true
+                separatorView.isVisible = true
                 minTv.text = getDegreeAnnotation(weather.minimumTemperature.toInt())
                 maxTv.text = getDegreeAnnotation(weather.maximumTemperature.toInt())
                 currentTv.text = getDegreeAnnotation(weather.temperature.toInt())
@@ -77,6 +75,9 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                     else -> R.string.sunny
                 }
                 rootView.setBackgroundResource(backgroundColorRes)
+            } else {
+                temperatureLayout.isVisible = false
+                separatorView.isVisible = false
             }
         }
 

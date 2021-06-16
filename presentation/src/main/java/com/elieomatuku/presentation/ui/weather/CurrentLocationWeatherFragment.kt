@@ -1,6 +1,8 @@
 package com.elieomatuku.presentation.ui.weather
 
+import android.location.Location
 import android.os.Bundle
+import android.view.View
 import com.elieomatuku.presentation.extensions.hasLocationPermissions
 import timber.log.Timber
 
@@ -10,18 +12,23 @@ import timber.log.Timber
 
 class CurrentLocationWeatherFragment : WeatherFragment() {
     companion object {
-        const val LONG = "long"
-        const val LAT = "lat"
-
-        fun newInstance(lat: Double, long: Double): WeatherFragment {
-            val fragment = CurrentLocationWeatherFragment()
-            val args = Bundle()
-            args.putDouble(LAT, lat)
-            args.putDouble(LONG, long)
-
-            fragment.arguments = args
-            return fragment
+        fun newInstance(): WeatherFragment {
+            return CurrentLocationWeatherFragment()
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (hasLocationPermissions()) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    Timber.d("location: lat = ${location?.latitude}, long = ${location?.longitude} ")
+
+                    location?.let {
+                        viewModel.getLocationCurrentWeather(location.latitude, location.longitude)
+                    }
+                }
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun refreshWeather() {

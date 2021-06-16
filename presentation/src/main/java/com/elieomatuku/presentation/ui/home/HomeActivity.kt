@@ -1,6 +1,5 @@
 package com.elieomatuku.presentation.ui.home
 
-import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
@@ -10,7 +9,6 @@ import com.elieomatuku.presentation.extensions.hasLocationPermissions
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import timber.log.Timber
 
 /**
  * Created by elieomatuku on 2021-06-13
@@ -37,25 +35,12 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
             )
         }
 
-        if (hasLocationPermissions()) {
-
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    Timber.d("location: lat = ${location?.latitude}, long = ${location?.longitude} ")
-
-                    location?.let {
-                        supportFragmentManager.beginTransaction()
-                            .replace(
-                                R.id.navHostContainer,
-                                CurrentLocationWeatherFragment.newInstance(
-                                    it.latitude,
-                                    it.longitude
-                                )
-                            )
-                            .commitAllowingStateLoss()
-                    }
-                }
-        }
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.navHostContainer,
+                CurrentLocationWeatherFragment.newInstance()
+            )
+            .commitAllowingStateLoss()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
