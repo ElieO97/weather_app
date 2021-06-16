@@ -1,14 +1,14 @@
 package com.elieomatuku.presentation.ui.home
 
-import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
+import com.elieomatuku.presentation.extensions.hasLocationPermissions
 import com.elieomatuku.presentation.ui.base.BaseActivity
-import com.elieomatuku.presentation.ui.weather.WeatherFragment
+import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
 
@@ -26,14 +26,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.elevation = 0f
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (!hasLocationPermissions()) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(
@@ -44,14 +37,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
             )
         }
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (hasLocationPermissions()) {
 
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
@@ -61,7 +47,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
                         supportFragmentManager.beginTransaction()
                             .replace(
                                 R.id.navHostContainer,
-                                WeatherFragment.newInstance(
+                                CurrentLocationWeatherFragment.newInstance(
                                     it.latitude,
                                     it.longitude
                                 )

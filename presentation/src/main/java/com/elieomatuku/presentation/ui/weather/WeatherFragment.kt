@@ -6,12 +6,13 @@ import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_weather.*
+import kotlin.properties.Delegates
 
 /**
  * Created by elieomatuku on 2021-06-14
  */
 
-class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
+open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     companion object {
         const val LONG = "long"
         const val LAT = "lat"
@@ -27,17 +28,21 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
         }
     }
 
-    private val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
+    protected val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
+    private var long by Delegates.notNull<Double>()
+    private var lat by Delegates.notNull<Double>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val long = arguments?.getDouble(LONG) ?: 0.0
-        val lat = arguments?.getDouble(LAT) ?: 0.0
+        long = arguments?.getDouble(LONG) ?: 0.0
+        lat = arguments?.getDouble(LAT) ?: 0.0
 
         viewModel.getLocationCurrentWeather(lat, long)
 
         viewModel.viewState.observe(viewLifecycleOwner) {
+
+            refreshLayout.isRefreshing = false
 
             val weather = it.weather
             if (weather != null) {
@@ -74,7 +79,12 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
         }
 
         refreshLayout.setOnRefreshListener {
+            refreshWeather()
         }
+    }
+
+    open fun refreshWeather() {
+        viewModel.getLocationCurrentWeather(lat, long)
     }
 
     private fun getDegreeAnnotation(value: Int): String {
