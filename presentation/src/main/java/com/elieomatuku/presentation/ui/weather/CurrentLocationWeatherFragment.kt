@@ -2,9 +2,13 @@ package com.elieomatuku.presentation.ui.weather
 
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.elieomatuku.presentation.extensions.hasLocationPermissions
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import timber.log.Timber
 
 /**
@@ -31,6 +35,25 @@ class CurrentLocationWeatherFragment : WeatherFragment() {
             }
         }
 
+    private val locationRequest: LocationRequest by lazy {
+        LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setInterval(10000)
+            .setFastestInterval(1000)
+    }
+
+    private val locationCallback: LocationCallback by lazy {
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
+                for (location in locationResult.locations) {
+                    refreshWeather()
+                }
+            }
+        }
+        locationCallback
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         if (!hasLocationPermissions()) {
@@ -43,24 +66,33 @@ class CurrentLocationWeatherFragment : WeatherFragment() {
         }
 
         if (hasLocationPermissions()) {
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    Timber.d("location: lat = ${location?.latitude}, long = ${location?.longitude} ")
-
-                    location?.let {
-                        viewModel.getLocationCurrentWeather(location.latitude, location.longitude)
-                    }
-                }
+            refreshWeather()
         }
+
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     override fun refreshWeather() {
         if (hasLocationPermissions()) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                Timber.d("location = ${location.longitude} ${location.latitude}")
-                viewModel.getLocationCurrentWeather(location.latitude, location.longitude)
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                Timber.d("location = ${location?.longitude} ${location?.latitude}")
+                location?.let {
+                    viewModel.getLocationCurrentWeather(location.latitude, location.longitude)
+                } ?: startLocationUpdates()
             }
         }
+    }
+
+    private fun startLocationUpdates() {
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
     }
 }
