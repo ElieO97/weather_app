@@ -41,7 +41,10 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
 
         try {
             val dataStore = factory.retrieveDataStore(lat, long)
-            val weatherEntities = dataStore.getLocationWeatherFiveDayForecast(lat, long)
+            val weatherEntities = dataStore.getLocationWeatherFiveDayForecast(lat, long).map {
+                val location = it.location.copy(latitude = lat, longitude = long)
+                it.copy(location = location)
+            }
 
             if (dataStore is WeatherRemoteDataStore) {
                 factory.retrieveCacheDataStore().saveLocationWeatherFiveDayForecast(weatherEntities)

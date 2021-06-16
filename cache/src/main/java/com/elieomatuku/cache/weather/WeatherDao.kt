@@ -15,8 +15,11 @@ interface WeatherDao {
     @Query("SELECT * FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = 1  LIMIT 1")
     fun getLocationCurrentWeather(lat: Double, long: Double): CachedWeather?
 
-    @Query("SELECT * FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = null")
+    @Query("SELECT * FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = 0")
     fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<CachedWeather>
+
+    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = 0")
+    fun deleteLocationWeatherFiveDayForecast(lat: Double, long: Double)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveWeather(weather: CachedWeather)

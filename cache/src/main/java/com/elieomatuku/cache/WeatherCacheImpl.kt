@@ -24,8 +24,7 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
 
     override fun isCached(lat: Double, long: Double): Boolean {
         val currentWeather: WeatherEntity? = getLocationCurrentWeather(lat, long)
-        val forecast = getLocationWeatherFiveDayForecast(lat, long)
-        return currentWeather != null && forecast.isNullOrEmpty()
+        return currentWeather != null
     }
 
     override fun isExpired(lat: Double, long: Double): Boolean {
@@ -55,9 +54,12 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
     }
 
     override fun saveWeathers(weatherEntities: List<WeatherEntity>) {
+        weatherDao.deleteLocationWeatherFiveDayForecast(weatherEntities.first().location.latitude, weatherEntities.first().location.longitude)
+
         val weathers = weatherEntities.map {
-            CachedWeather.fromWeatherEntity(it)
+            CachedWeather.fromWeatherEntity(it, currentWeather = false)
         }
+
         weatherDao.saveWeathers(weathers)
     }
 
