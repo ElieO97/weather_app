@@ -25,6 +25,7 @@ data class WeatherEntity(
                 maximumTemperature = weatherEntity.maximumTemperature,
                 location = weatherEntity.location.let(LocationEntity::toLocation),
                 date = weatherEntity.date,
+                weekDay = weatherEntity.weekDay,
                 weatherCondition = weatherEntity.weatherConditionEntity.let(WeatherConditionEntity::toWeatherCondition),
                 lastUpdate = weatherEntity.lastUpdatedInMilliseconds
             )

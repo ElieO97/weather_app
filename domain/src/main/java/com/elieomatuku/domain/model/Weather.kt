@@ -11,5 +11,6 @@ data class Weather(
     val weatherCondition: WeatherCondition,
     val location: Location,
     val date: Long,
+    val weekDay: String? = null,
     val lastUpdate: Long,
 )
