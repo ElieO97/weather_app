@@ -7,6 +7,6 @@ import com.elieomatuku.domain.model.Weather
  */
 
 data class WeatherViewState(
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val weather: Weather? = null
 )

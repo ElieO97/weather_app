@@ -11,7 +11,7 @@ import com.elieomatuku.data.repository.weather.WeatherCache
 
 class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
     companion object {
-        const val STALE_MS = 1800 // Data is stale after a 5min
+        const val STALE_MS = 300000 // Data is stale after a 5min
     }
 
     override fun clearAllWeather() {
