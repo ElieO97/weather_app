@@ -1,5 +1,6 @@
 package com.elieomatuku.cache
 
+import com.elieomatuku.cache.location.LocationDao
 import com.elieomatuku.data.model.LocationEntity
 import com.elieomatuku.data.repository.location.LocationCache
 
@@ -7,7 +8,7 @@ import com.elieomatuku.data.repository.location.LocationCache
  * Created by elieomatuku on 2021-06-13
  */
 
-class LocationCacheImpl : LocationCache {
+class LocationCacheImpl(locationDao: LocationDao) : LocationCache {
     override fun clearAllLocations() {
         TODO("Not yet implemented")
     }

@@ -1,5 +1,6 @@
 package com.elieomatuku.cache
 
+import com.elieomatuku.cache.weather.WeatherDao
 import com.elieomatuku.data.model.WeatherEntity
 import com.elieomatuku.data.repository.weather.WeatherCache
 
@@ -7,7 +8,7 @@ import com.elieomatuku.data.repository.weather.WeatherCache
  * Created by elieomatuku on 2021-06-13
  */
 
-class WeatherCacheImpl : WeatherCache {
+class WeatherCacheImpl(weatherDao: WeatherDao) : WeatherCache {
     override fun clearAllWeather() {
         TODO("Not yet implemented")
     }
