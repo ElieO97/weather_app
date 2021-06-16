@@ -9,7 +9,7 @@ import com.elieomatuku.data.repository.weather.WeatherDataStore
  */
 
 class WeatherCacheDataStore(private val weatherCache: WeatherCache) : WeatherDataStore {
-    override suspend fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity {
+    override suspend fun getLocationCurrentWeather(lat: Double, long: Double): WeatherEntity? {
         return weatherCache.getLocationCurrentWeather(lat, long)
     }
 
