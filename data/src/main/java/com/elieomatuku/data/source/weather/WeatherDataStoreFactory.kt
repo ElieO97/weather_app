@@ -28,4 +28,8 @@ class WeatherDataStoreFactory(
     fun retrieveRemoteDataStore(): WeatherDataStore {
         return weatherRemoteDataStore
     }
+
+    fun isCached(lat: Double, long: Double): Boolean {
+        return weatherCache.isCached(lat, long)
+    }
 }

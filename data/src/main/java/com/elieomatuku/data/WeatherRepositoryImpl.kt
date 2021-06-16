@@ -12,16 +12,26 @@ import com.elieomatuku.domain.repository.WeatherRepository
 
 class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : WeatherRepository {
     override suspend fun getLocationCurrentWeather(lat: Double, long: Double): Weather {
-        val dataStore = factory.retrieveDataStore(lat, long)
-        var weatherEntity = dataStore.getLocationCurrentWeather(lat, long)
-        val location = weatherEntity?.location?.copy(latitude = lat, longitude = long)
-        weatherEntity = weatherEntity?.copy(location = location!!)
+        try {
+            val dataStore = factory.retrieveDataStore(lat, long)
+            var weatherEntity = dataStore.getLocationCurrentWeather(lat, long)
+            val location = weatherEntity?.location?.copy(latitude = lat, longitude = long)
+            weatherEntity = weatherEntity?.copy(location = location!!)
 
-        if (dataStore is WeatherRemoteDataStore) {
-            factory.retrieveCacheDataStore().saveCurrentWeather(weatherEntity!!)
+            if (dataStore is WeatherRemoteDataStore) {
+                factory.retrieveCacheDataStore().saveCurrentWeather(weatherEntity!!)
+            }
+
+            return weatherEntity!!.let(WeatherEntity::toWeather)
+        } catch (e: Exception) {
+            if (factory.isCached(lat, long)) {
+                val weatherEntity =
+                    factory.retrieveCacheDataStore().getLocationCurrentWeather(lat, long)!!
+                return weatherEntity.let(WeatherEntity::toWeather)
+            } else {
+                throw e
+            }
         }
-
-        return weatherEntity!!.let(WeatherEntity::toWeather)
     }
 
     override suspend fun getLocationWeatherFiveDayForecast(
