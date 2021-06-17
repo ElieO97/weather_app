@@ -18,20 +18,20 @@ interface WeatherDao {
     @Query("SELECT * FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = 0")
     fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<CachedWeather>
 
-    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} where locationLatitude = :lat and locationLongitude = :long and currentWeather = 0")
-    fun deleteLocationWeatherFiveDayForecast(lat: Double, long: Double)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveWeather(weather: CachedWeather)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveWeathers(weathers: List<CachedWeather>)
+    fun savForecast(forecast: List<CachedWeather>)
 
-    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationLatitude = :lat And locationLongitude = :long")
-    fun deleteWeatherForLocation(lat: Double, long: Double)
+    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationId = :locationId")
+    fun deleteWeatherForLocation(locationId: Long?)
 
-    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationLatitude = :lat And locationLongitude = :long and currentWeather = 1")
-    fun deleteCurrentWeatherForLocation(lat: Double, long: Double)
+    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} WHERE locationId = :locationId and currentWeather = 1")
+    fun deleteCurrentWeatherForLocation(locationId: Long?)
+
+    @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE} where locationId = :locationId and currentWeather = 0")
+    fun deleteLocationWeatherFiveDayForecast(locationId: Long?)
 
     @Query("DELETE FROM ${CachedWeather.WEATHER_TABLE}")
     fun deleteAll()

@@ -10,7 +10,7 @@ interface WeatherCache {
 
     fun clearAllWeather()
 
-    fun clearWeatherForLocation(lat: Double, long: Double)
+    fun clearWeatherForLocation(locationId: Long)
 
     fun isCached(lat: Double, long: Double): Boolean
 
@@ -22,7 +22,7 @@ interface WeatherCache {
 
     fun saveWeather(weatherEntity: WeatherEntity)
 
-    fun saveWeathers(weatherEntities: List<WeatherEntity>)
+    fun saveForecast(forecast: List<WeatherEntity>)
 
     fun saveLocationCurrentWeather(weatherEntity: WeatherEntity)
 }

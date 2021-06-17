@@ -25,7 +25,7 @@ class WeatherCacheDataStore(private val weatherCache: WeatherCache) : WeatherDat
     }
 
     override suspend fun saveLocationWeatherFiveDayForecast(weatherEntities: List<WeatherEntity>) {
-        weatherCache.saveWeathers(weatherEntities)
+        weatherCache.saveForecast(weatherEntities)
     }
 
     override suspend fun clearAllWeather() {

@@ -18,8 +18,8 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
         weatherDao.deleteAll()
     }
 
-    override fun clearWeatherForLocation(lat: Double, long: Double) {
-        weatherDao.deleteWeatherForLocation(lat, long)
+    override fun clearWeatherForLocation(locationId: Long) {
+        weatherDao.deleteWeatherForLocation(locationId)
     }
 
     override fun isCached(lat: Double, long: Double): Boolean {
@@ -41,9 +41,9 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
     }
 
     override fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<WeatherEntity> {
-        val cachedWeathers = weatherDao.getLocationWeatherFiveDayForecast(lat, long)
+        val cachedForecast = weatherDao.getLocationWeatherFiveDayForecast(lat, long)
 
-        return cachedWeathers.map {
+        return cachedForecast.map {
             CachedWeather.toWeatherEntity(it)
         }
     }
@@ -53,20 +53,19 @@ class WeatherCacheImpl(private val weatherDao: WeatherDao) : WeatherCache {
         weatherDao.saveWeather(cachedWeather)
     }
 
-    override fun saveWeathers(weatherEntities: List<WeatherEntity>) {
-        weatherDao.deleteLocationWeatherFiveDayForecast(weatherEntities.first().location.latitude, weatherEntities.first().location.longitude)
+    override fun saveForecast(forecast: List<WeatherEntity>) {
+        weatherDao.deleteLocationWeatherFiveDayForecast(forecast.first().location.id)
 
-        val weathers = weatherEntities.map {
+        val cacheForecast = forecast.map {
             CachedWeather.fromWeatherEntity(it, currentWeather = false)
         }
 
-        weatherDao.saveWeathers(weathers)
+        weatherDao.savForecast(cacheForecast)
     }
 
     override fun saveLocationCurrentWeather(weatherEntity: WeatherEntity) {
         weatherDao.deleteCurrentWeatherForLocation(
-            weatherEntity.location.latitude,
-            weatherEntity.location.longitude
+            weatherEntity.location.id
         )
         val cachedWeather = CachedWeather.fromWeatherEntity(weatherEntity, currentWeather = true)
         weatherDao.saveWeather(cachedWeather)
