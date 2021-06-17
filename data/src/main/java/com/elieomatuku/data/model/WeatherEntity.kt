@@ -27,6 +27,7 @@ data class WeatherEntity(
                 date = weatherEntity.date,
                 weekDay = weatherEntity.weekDay,
                 weatherCondition = weatherEntity.weatherConditionEntity.let(WeatherConditionEntity::toWeatherCondition),
+                weatherConditionMain = weatherEntity.weatherConditionEntity.main,
                 lastUpdate = weatherEntity.lastUpdatedInMilliseconds
             )
         }

@@ -51,7 +51,7 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.viewState.observe(viewLifecycleOwner) {
+        viewModel.viewState.observe(viewLifecycleOwner) { it ->
 
             refreshLayout.isRefreshing = false
             progressBar.isVisible = it.isLoading
@@ -68,7 +68,9 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 currentTv.text = getDegreeAnnotation(weather.temperature)
 
                 headerContainer.setBackgroundResource(weather.getBackgroundResources())
-                weatherConditionTv.text = getString(weather.descriptionResources())
+                weatherConditionTv.text =
+                    weather.descriptionResources()?.let { res -> getString(res) }
+                    ?: weather.weatherConditionMain
                 rootView.setBackgroundResource(weather.getBackgroundColorResources())
                 changeStatusAndActionBarColor(weather.getBackgroundColorResources())
             } else {

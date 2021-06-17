@@ -13,7 +13,7 @@ fun Weather.getBackgroundResources(): Int {
         WeatherCondition.Sunny -> R.mipmap.forest_sunny
         WeatherCondition.Cloudy -> R.mipmap.forest_cloudy
         WeatherCondition.Rainy -> R.mipmap.forest_rainy
-        else -> R.mipmap.forest_sunny
+        else -> R.color.teal_700
     }
 }
 
@@ -26,12 +26,12 @@ fun Weather.getSmallIconResources(): Int {
     }
 }
 
-fun Weather.descriptionResources(): Int {
+fun Weather.descriptionResources(): Int? {
     return when (weatherCondition) {
         WeatherCondition.Sunny -> R.string.sunny
         WeatherCondition.Cloudy -> R.string.cloudy
         WeatherCondition.Rainy -> R.string.rainy
-        else -> R.string.sunny
+        WeatherCondition.Unknown -> null
     }
 }
 
@@ -40,6 +40,6 @@ fun Weather.getBackgroundColorResources(): Int {
         WeatherCondition.Sunny -> R.color.sunny
         WeatherCondition.Cloudy -> R.color.cloudy
         WeatherCondition.Rainy -> R.color.rainy
-        else -> R.color.sunny
+        else -> R.color.teal_700
     }
 }
