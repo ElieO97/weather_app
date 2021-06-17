@@ -16,9 +16,20 @@ import timber.log.Timber
 
 class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
 
+    private val viewModel: FavouritesViewModel by viewModel<FavouritesViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = getString(R.string.favourites)
+
+        viewModel.viewState.observe(this) {
+        }
+
+        viewModel.searchResultsData.observe(this) {
+            if (!it.isNullOrEmpty()) {
+                Timber.d("searchResult = $it")
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,6 +61,9 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         Timber.d("onQueryTextSubmit  = $query")
+                        query?.let {
+                            viewModel.searchLocation(it)
+                        }
                         return false
                     }
                 })

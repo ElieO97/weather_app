@@ -17,6 +17,6 @@ interface LocationApi {
         @Query("lon") long: Double
     ): Response<List<RemoteLocation>>
 
-    @GET("geo/1.0/reverse")
+    @GET("geo/1.0/direct")
     suspend fun getLocation(@Query("q") q: String): Response<List<RemoteLocation>>
 }

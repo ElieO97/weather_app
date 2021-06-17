@@ -6,8 +6,10 @@ import com.elieomatuku.domain.interactor.location.GetCurrentLocation
 import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.location.GetLocationDetails
 import com.elieomatuku.domain.interactor.location.SaveFavouriteLocation
+import com.elieomatuku.domain.interactor.location.SearchLocation
 import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
+import com.elieomatuku.presentation.ui.favourites.FavouritesViewModel
 import com.elieomatuku.presentation.ui.weather.WeatherViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -55,8 +57,16 @@ object PresentationKodeinModule {
                 GetLocationFiveDayForecast(instance())
             }
 
+            bind<SearchLocation>() with singleton {
+                SearchLocation(instance())
+            }
+
             bindViewModel<WeatherViewModel>() with provider {
                 WeatherViewModel(instance(), instance())
+            }
+
+            bindViewModel<FavouritesViewModel>() with provider {
+                FavouritesViewModel(instance())
             }
 
             bind<FusedLocationProviderClient>() with singleton {

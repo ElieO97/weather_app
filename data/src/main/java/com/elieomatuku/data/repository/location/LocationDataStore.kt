@@ -19,4 +19,6 @@ interface LocationDataStore {
     suspend fun getCurrentLocation(lat: Double, long: Double): LocationEntity
 
     suspend fun getFavouriteLocations(): List<LocationEntity>
+
+    suspend fun searchLocation(name: String): List<LocationEntity>
 }
