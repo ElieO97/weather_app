@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.Weather
 import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
+import com.elieomatuku.presentation.utils.UiUtils
 import kotlinx.android.synthetic.main.viewholder_forecast.view.*
-import kotlin.math.roundToInt
 
 /**
  * Created by elieomatuku on 2021-06-17
@@ -42,7 +42,7 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun update(weather: Weather) {
         weekDayTv.text = weather.weekDay
-        maxTempTv.text = "${weather.temperature.roundToInt()}\u00B0"
+        maxTempTv.text = UiUtils.getDegreeAnnotation(weather.temperature)
 
         val imageRes = when (weather.weatherCondition) {
             WeatherCondition.Sunny -> R.mipmap.clear

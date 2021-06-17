@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseFragment
+import com.elieomatuku.presentation.utils.UiUtils.getDegreeAnnotation
 import kotlinx.android.synthetic.main.fragment_weather.*
 import kotlin.properties.Delegates
 
@@ -56,13 +57,13 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
             val weather = it.weather
             if (weather != null) {
 
-                temperatureTv.text = getDegreeAnnotation(weather.temperature.toInt())
+                temperatureTv.text = getDegreeAnnotation(weather.temperature)
 
                 temperatureLayout.isVisible = true
                 separatorView.isVisible = true
-                minTv.text = getDegreeAnnotation(weather.minimumTemperature.toInt())
-                maxTv.text = getDegreeAnnotation(weather.maximumTemperature.toInt())
-                currentTv.text = getDegreeAnnotation(weather.temperature.toInt())
+                minTv.text = getDegreeAnnotation(weather.minimumTemperature)
+                maxTv.text = getDegreeAnnotation(weather.maximumTemperature)
+                currentTv.text = getDegreeAnnotation(weather.temperature)
 
                 val backgroundRes = when (weather.weatherCondition) {
                     WeatherCondition.Sunny -> R.mipmap.forest_sunny
@@ -103,10 +104,6 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
 
     open fun refreshWeather() {
         viewModel.getLocationCurrentWeather(lat, long)
-    }
-
-    private fun getDegreeAnnotation(value: Int): String {
-        return "${value}\u00B0"
     }
 
     open fun changeStatusAndActionBarColor(resColor: Int) {
