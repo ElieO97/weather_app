@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_favourites.*
 import timber.log.Timber
 
 /**
@@ -23,6 +25,7 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
         supportActionBar?.title = getString(R.string.favourites)
 
         viewModel.viewState.observe(this) {
+            progressBar.isVisible = it.isLoading
         }
 
         viewModel.searchResultsData.observe(this) {
