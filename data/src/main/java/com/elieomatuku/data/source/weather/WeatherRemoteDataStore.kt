@@ -24,6 +24,10 @@ class WeatherRemoteDataStore(private val weatherRemote: WeatherRemote) : Weather
         throw UnsupportedOperationException()
     }
 
+    override suspend fun saveLocationWeatherFiveDayForecast(weatherEntities: List<WeatherEntity>) {
+        throw UnsupportedOperationException()
+    }
+
     override suspend fun clearAllWeather() {
         throw UnsupportedOperationException()
     }

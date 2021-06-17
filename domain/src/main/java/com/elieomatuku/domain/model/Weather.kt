@@ -9,7 +9,9 @@ data class Weather(
     val minimumTemperature: Double,
     val maximumTemperature: Double,
     val weatherCondition: WeatherCondition,
+    val weatherConditionMain: String? = null,
     val location: Location,
     val date: Long,
+    val weekDay: String? = null,
     val lastUpdate: Long,
 )

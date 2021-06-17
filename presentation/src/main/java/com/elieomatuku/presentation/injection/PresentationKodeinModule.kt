@@ -56,7 +56,7 @@ object PresentationKodeinModule {
             }
 
             bindViewModel<WeatherViewModel>() with provider {
-                WeatherViewModel(instance())
+                WeatherViewModel(instance(), instance())
             }
 
             bind<FusedLocationProviderClient>() with singleton {

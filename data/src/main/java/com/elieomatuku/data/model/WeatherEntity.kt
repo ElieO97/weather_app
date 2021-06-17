@@ -14,6 +14,7 @@ data class WeatherEntity(
     val date: Long,
     val weatherConditionEntity: WeatherConditionEntity,
     val lastUpdatedInMilliseconds: Long,
+    val weekDay: String? = null
 ) {
 
     companion object {
@@ -24,9 +25,24 @@ data class WeatherEntity(
                 maximumTemperature = weatherEntity.maximumTemperature,
                 location = weatherEntity.location.let(LocationEntity::toLocation),
                 date = weatherEntity.date,
+                weekDay = weatherEntity.weekDay,
                 weatherCondition = weatherEntity.weatherConditionEntity.let(WeatherConditionEntity::toWeatherCondition),
+                weatherConditionMain = weatherEntity.weatherConditionEntity.main,
                 lastUpdate = weatherEntity.lastUpdatedInMilliseconds
             )
         }
+
+        fun toWeatherList(weatherEntities: List<WeatherEntity>): List<Weather> {
+            return weatherEntities
+                .map {
+                    val weather: Weather = toWeather(it)
+                    weather
+                }
+        }
+    }
+
+    fun updateLocation(lat: Double, long: Double): WeatherEntity {
+        val location = location.copy(latitude = lat, longitude = long)
+        return copy(location = location)
     }
 }

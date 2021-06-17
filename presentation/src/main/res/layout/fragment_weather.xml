@@ -144,7 +144,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/headerContainer" />
+                app:layout_constraintTop_toBottomOf="@id/separatorView" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

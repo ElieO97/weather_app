@@ -11,7 +11,8 @@ import com.elieomatuku.data.model.LocationEntity
 data class RemoteLocation(
     val name: String?,
     val coord: Coordinates?,
-    val country: String?
+    val country: String?,
+    val id: Long? = null
 ) {
 
     companion object {
@@ -19,7 +20,8 @@ data class RemoteLocation(
             return LocationEntity(
                 name = remoteLocation.name ?: "",
                 latitude = remoteLocation.coord?.lat ?: 0.0,
-                longitude = remoteLocation.coord?.lon ?: 0.0
+                longitude = remoteLocation.coord?.lon ?: 0.0,
+                id = remoteLocation.id
             )
         }
     }

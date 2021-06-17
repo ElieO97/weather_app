@@ -16,7 +16,7 @@ data class WeatherConditionEntity(
         fun toWeatherCondition(weatherConditionEntity: WeatherConditionEntity): WeatherCondition {
             return when (weatherConditionEntity.id) {
                 800 -> WeatherCondition.Sunny
-                in 801..804, 701 -> WeatherCondition.Cloudy
+                in 801..804 -> WeatherCondition.Cloudy
                 in 500..531 -> WeatherCondition.Rainy
                 else -> WeatherCondition.Unknown
             }

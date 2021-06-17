@@ -9,14 +9,16 @@ import com.elieomatuku.domain.model.Location
 data class LocationEntity(
     val name: String,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    val id: Long? = null,
 ) {
     companion object {
         fun toLocation(locationEntity: LocationEntity): Location {
             return Location(
                 name = locationEntity.name,
                 latitude = locationEntity.latitude,
-                longitude = locationEntity.longitude
+                longitude = locationEntity.longitude,
+                id = locationEntity.id
             )
         }
 
@@ -24,7 +26,8 @@ data class LocationEntity(
             return LocationEntity(
                 name = location.name,
                 latitude = location.latitude,
-                longitude = location.longitude
+                longitude = location.longitude,
+                id = location.id
             )
         }
     }

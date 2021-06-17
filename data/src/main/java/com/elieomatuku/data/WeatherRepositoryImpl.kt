@@ -15,8 +15,7 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
         try {
             val dataStore = factory.retrieveDataStore(lat, long)
             var weatherEntity = dataStore.getLocationCurrentWeather(lat, long)
-            val location = weatherEntity?.location?.copy(latitude = lat, longitude = long)
-            weatherEntity = weatherEntity?.copy(location = location!!)
+            weatherEntity = weatherEntity?.updateLocation(lat, long)
 
             if (dataStore is WeatherRemoteDataStore) {
                 factory.retrieveCacheDataStore().saveCurrentWeather(weatherEntity!!)
@@ -39,10 +38,26 @@ class WeatherRepositoryImpl(private val factory: WeatherDataStoreFactory) : Weat
         long: Double
     ): List<Weather> {
 
-        return factory.retrieveDataStore(lat, long).getLocationWeatherFiveDayForecast(lat, long)
-            .map {
-                val weather: Weather = WeatherEntity.toWeather(it)
-                weather
+        try {
+            val dataStore = factory.retrieveDataStore(lat, long)
+            val weatherEntities = dataStore.getLocationWeatherFiveDayForecast(lat, long).map {
+                it.updateLocation(lat, long)
+            }.sortedBy { it.date }
+
+            if (dataStore is WeatherRemoteDataStore) {
+                factory.retrieveCacheDataStore().saveLocationWeatherFiveDayForecast(weatherEntities)
             }
+
+            return WeatherEntity.toWeatherList(weatherEntities)
+        } catch (e: Exception) {
+            if (factory.isCached(lat, long)) {
+                val weatherEntities =
+                    factory.retrieveCacheDataStore().getLocationWeatherFiveDayForecast(lat, long)
+
+                return WeatherEntity.toWeatherList(weatherEntities).sortedBy { it.date }
+            } else {
+                throw e
+            }
+        }
     }
 }
