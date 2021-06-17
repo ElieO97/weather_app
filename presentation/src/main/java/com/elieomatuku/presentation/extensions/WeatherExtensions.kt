@@ -10,10 +10,10 @@ import com.elieomatuku.presentation.R
 
 fun Weather.getBackgroundResources(): Int {
     return when (weatherCondition) {
-        WeatherCondition.Sunny -> R.color.sunny
-        WeatherCondition.Cloudy -> R.color.cloudy
-        WeatherCondition.Rainy -> R.color.rainy
-        else -> R.string.sunny
+        WeatherCondition.Sunny -> R.mipmap.forest_sunny
+        WeatherCondition.Cloudy -> R.mipmap.forest_cloudy
+        WeatherCondition.Rainy -> R.mipmap.forest_rainy
+        else -> R.mipmap.forest_sunny
     }
 }
 
@@ -40,6 +40,6 @@ fun Weather.getBackgroundColorResources(): Int {
         WeatherCondition.Sunny -> R.color.sunny
         WeatherCondition.Cloudy -> R.color.cloudy
         WeatherCondition.Rainy -> R.color.rainy
-        else -> R.string.sunny
+        else -> R.color.sunny
     }
 }
