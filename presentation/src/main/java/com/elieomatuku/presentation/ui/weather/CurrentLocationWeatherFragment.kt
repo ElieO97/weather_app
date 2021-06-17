@@ -17,6 +17,8 @@ import timber.log.Timber
 
 class CurrentLocationWeatherFragment : WeatherFragment() {
     companion object {
+        private const val LOCATION_REQUEST_INTERVAL: Long = 10000
+
         fun newInstance(): WeatherFragment {
             return CurrentLocationWeatherFragment()
         }
@@ -38,8 +40,8 @@ class CurrentLocationWeatherFragment : WeatherFragment() {
     private val locationRequest: LocationRequest by lazy {
         LocationRequest.create()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(10000)
-            .setFastestInterval(1000)
+            .setInterval(LOCATION_REQUEST_INTERVAL)
+            .setFastestInterval(LOCATION_REQUEST_INTERVAL)
     }
 
     private val locationCallback: LocationCallback by lazy {

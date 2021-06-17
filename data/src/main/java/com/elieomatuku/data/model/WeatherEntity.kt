@@ -30,5 +30,18 @@ data class WeatherEntity(
                 lastUpdate = weatherEntity.lastUpdatedInMilliseconds
             )
         }
+
+        fun toWeatherList(weatherEntities: List<WeatherEntity>): List<Weather> {
+            return weatherEntities
+                .map {
+                    val weather: Weather = toWeather(it)
+                    weather
+                }
+        }
+    }
+
+    fun updateLocation(lat: Double, long: Double): WeatherEntity {
+        val location = location.copy(latitude = lat, longitude = long)
+        return copy(location = location)
     }
 }
