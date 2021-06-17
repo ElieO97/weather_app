@@ -9,8 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
+import com.elieomatuku.presentation.extensions.descriptionResources
+import com.elieomatuku.presentation.extensions.getBackgroundColorResources
+import com.elieomatuku.presentation.extensions.getBackgroundResources
 import com.elieomatuku.presentation.ui.base.BaseFragment
 import com.elieomatuku.presentation.utils.UiUtils.getDegreeAnnotation
 import kotlinx.android.synthetic.main.fragment_weather.*
@@ -65,30 +67,10 @@ open class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                 maxTv.text = getDegreeAnnotation(weather.maximumTemperature)
                 currentTv.text = getDegreeAnnotation(weather.temperature)
 
-                val backgroundRes = when (weather.weatherCondition) {
-                    WeatherCondition.Sunny -> R.mipmap.forest_sunny
-                    WeatherCondition.Cloudy -> R.mipmap.forest_cloudy
-                    WeatherCondition.Rainy -> R.mipmap.forest_rainy
-                    else -> R.mipmap.forest_sunny
-                }
-                headerContainer.setBackgroundResource(backgroundRes)
-
-                val weatherConditionRes = when (weather.weatherCondition) {
-                    WeatherCondition.Sunny -> R.string.sunny
-                    WeatherCondition.Cloudy -> R.string.cloudy
-                    WeatherCondition.Rainy -> R.string.rainy
-                    else -> R.string.sunny
-                }
-                weatherConditionTv.text = getString(weatherConditionRes)
-
-                val backgroundColorRes = when (weather.weatherCondition) {
-                    WeatherCondition.Sunny -> R.color.sunny
-                    WeatherCondition.Cloudy -> R.color.cloudy
-                    WeatherCondition.Rainy -> R.color.rainy
-                    else -> R.string.sunny
-                }
-                rootView.setBackgroundResource(backgroundColorRes)
-                changeStatusAndActionBarColor(backgroundColorRes)
+                headerContainer.setBackgroundResource(weather.getBackgroundResources())
+                weatherConditionTv.text = getString(weather.descriptionResources())
+                rootView.setBackgroundResource(weather.getBackgroundColorResources())
+                changeStatusAndActionBarColor(weather.getBackgroundColorResources())
             } else {
                 temperatureLayout.isVisible = false
                 separatorView.isVisible = false

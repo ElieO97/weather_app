@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.Weather
-import com.elieomatuku.domain.model.WeatherCondition
 import com.elieomatuku.presentation.R
+import com.elieomatuku.presentation.extensions.getSmallIconResources
 import com.elieomatuku.presentation.utils.UiUtils
 import kotlinx.android.synthetic.main.viewholder_forecast.view.*
 
@@ -43,13 +43,6 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun update(weather: Weather) {
         weekDayTv.text = weather.weekDay
         maxTempTv.text = UiUtils.getDegreeAnnotation(weather.temperature)
-
-        val imageRes = when (weather.weatherCondition) {
-            WeatherCondition.Sunny -> R.mipmap.clear
-            WeatherCondition.Cloudy -> R.mipmap.partlysunny
-            WeatherCondition.Rainy -> R.mipmap.rain
-            else -> R.mipmap.clear
-        }
-        weatherConditionImageView.setImageResource(imageRes)
+        weatherConditionImageView.setImageResource(weather.getSmallIconResources())
     }
 }
