@@ -8,9 +8,15 @@ import java.util.Date
  */
 
 object DataUtils {
+    private val sdf = SimpleDateFormat("EEEE")
+
     fun convertUnixTimeToWeekDay(unixTime: Long?): String {
-        val sdf = SimpleDateFormat("EEEE")
         val dateFormat = Date(unixTime?.times(1000) ?: 0)
+        return sdf.format(dateFormat)
+    }
+
+    fun today(): String {
+        val dateFormat = Date(System.currentTimeMillis())
         return sdf.format(dateFormat)
     }
 }

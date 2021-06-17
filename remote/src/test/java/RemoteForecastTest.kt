@@ -143,7 +143,8 @@ class RemoteForecastTest {
 
     @Test
     fun filterMaxTempForecasts() {
-        assertEquals(RemoteForecast.filterMaxTempForecasts(forecast), maxForecast)
+        val list = maxForecast.list.toMutableList().filter { it.dt_txt != DataUtils.today() }
+        assertEquals(RemoteForecast.filterMaxTempForecasts(forecast), maxForecast.copy(list = list))
     }
 
     @Test

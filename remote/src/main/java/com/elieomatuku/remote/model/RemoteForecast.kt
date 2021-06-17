@@ -2,6 +2,7 @@ package com.elieomatuku.remote.model
 
 import androidx.annotation.Keep
 import com.elieomatuku.data.DataUtils.convertUnixTimeToWeekDay
+import com.elieomatuku.data.DataUtils.today
 import com.elieomatuku.data.model.WeatherEntity
 
 /**
@@ -25,7 +26,8 @@ data class RemoteForecast(val list: List<RemoteWeather>, val city: RemoteLocatio
             }
 
             return remoteForecast.copy(
-                list = groupMaxWeatherForecast(weekDaysForecast)
+                list = groupMaxWeatherForecast(weekDaysForecast).toMutableList()
+                    .filter { it.dt_txt != today() }
             )
         }
 
