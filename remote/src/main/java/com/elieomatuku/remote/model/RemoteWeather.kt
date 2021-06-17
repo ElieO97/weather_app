@@ -30,6 +30,7 @@ data class RemoteWeather(
                     name = remoteWeather.name ?: "",
                     longitude = remoteWeather.coord?.lon ?: 0.0,
                     latitude = remoteWeather.coord?.lat ?: 0.0,
+                    id = remoteWeather.id
                 ),
                 date = remoteWeather.dt ?: 0,
                 weatherConditionEntity = remoteWeather.weather.first()?.let(
@@ -51,6 +52,7 @@ data class RemoteWeather(
                     name = remoteLocation.name ?: "",
                     longitude = remoteLocation.coord?.lon ?: 0.0,
                     latitude = remoteLocation.coord?.lat ?: 0.0,
+                    id = remoteLocation.id
                 ),
                 date = remoteWeather.dt ?: 0,
                 weekDay = remoteWeather.dt_txt,
