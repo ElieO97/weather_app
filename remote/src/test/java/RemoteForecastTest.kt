@@ -1,3 +1,4 @@
+import com.elieomatuku.data.DataUtils
 import com.elieomatuku.remote.model.Coordinates
 import com.elieomatuku.remote.model.RemoteForecast
 import com.elieomatuku.remote.model.RemoteLocation
@@ -148,7 +149,7 @@ class RemoteForecastTest {
     @Test
     fun groupMaxTemperatureForecast() {
         val weekDaysForecast = forecast.list.map {
-            val nuRemoteWeather = it.copy(dt_txt = RemoteForecast.convertUnixTimeToWeekDay(it.dt))
+            val nuRemoteWeather = it.copy(dt_txt = DataUtils.convertUnixTimeToWeekDay(it.dt))
             nuRemoteWeather
         }
 
@@ -190,15 +191,9 @@ class RemoteForecastTest {
     }
 
     @Test
-    fun convertUnixTimeToWeekDay() {
-        assertEquals(RemoteForecast.convertUnixTimeToWeekDay(162429845), "Monday")
-        assertEquals(RemoteForecast.convertUnixTimeToWeekDay(1623931245), "Thursday")
-    }
-
-    @Test
     fun findMaxTemperatureForecastForSpecificDay() {
         val weekDaysForecast = forecast.list.map {
-            val nuRemoteWeather = it.copy(dt_txt = RemoteForecast.convertUnixTimeToWeekDay(it.dt))
+            val nuRemoteWeather = it.copy(dt_txt = DataUtils.convertUnixTimeToWeekDay(it.dt))
             nuRemoteWeather
         }
 

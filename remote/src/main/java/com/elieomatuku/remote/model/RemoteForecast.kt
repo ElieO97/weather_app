@@ -1,9 +1,8 @@
 package com.elieomatuku.remote.model
 
 import androidx.annotation.Keep
+import com.elieomatuku.data.DataUtils.convertUnixTimeToWeekDay
 import com.elieomatuku.data.model.WeatherEntity
-import java.text.SimpleDateFormat
-import java.util.Date
 
 /**
  * Created by elieomatuku on 2021-06-13
@@ -40,12 +39,6 @@ data class RemoteForecast(val list: List<RemoteWeather>, val city: RemoteLocatio
                 findMaxTemperatureForecastForSpecificDay(weekDaysForecast, "Saturday"),
                 findMaxTemperatureForecastForSpecificDay(weekDaysForecast, "Sunday")
             ).filterNotNull()
-        }
-
-        fun convertUnixTimeToWeekDay(unixTime: Long?): String {
-            val sdf = SimpleDateFormat("EEEE")
-            val dateFormat = Date(unixTime?.times(1000) ?: 0)
-            return sdf.format(dateFormat)
         }
 
         fun findMaxTemperatureForecastForSpecificDay(
