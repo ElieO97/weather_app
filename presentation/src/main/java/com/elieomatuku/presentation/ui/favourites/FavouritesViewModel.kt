@@ -9,12 +9,16 @@ import com.elieomatuku.domain.interactor.runUseCase
 import com.elieomatuku.domain.model.Location
 import com.elieomatuku.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Created by elieomatuku on 2021-06-18
  */
 
-class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocations, private val deleteFavouriteLocation: DeleteFavouriteLocation) :
+class FavouritesViewModel(
+    private val getFavouriteLocations: GetFavouriteLocations,
+    private val deleteFavouriteLocation: DeleteFavouriteLocation
+) :
     BaseViewModel<FavouritesViewState>(FavouritesViewState()) {
 
     init {
@@ -42,6 +46,7 @@ class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocatio
 
     fun deleteFavouriteLocation(location: Location) {
         viewModelScope.launch {
+            Timber.d("location = $location")
             runUseCase(deleteFavouriteLocation, location)
         }
     }

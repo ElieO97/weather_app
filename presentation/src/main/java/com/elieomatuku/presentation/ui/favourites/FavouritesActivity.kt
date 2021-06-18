@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_favourites.emptyTv
 import kotlinx.android.synthetic.main.activity_favourites.progressBar
 import kotlinx.android.synthetic.main.activity_search_result.*
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by elieomatuku on 2021-06-17
@@ -61,7 +62,7 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
         PublishSubject.create<Location>()
     }
     private val locationDeletionObservable: Observable<Location>
-        get() = locationSelectionPublisher.hide()
+        get() = locationDeletionPublisher.hide()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,6 +118,7 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
         rxSubs.add(
             (
                 locationDeletionObservable
+                    .throttleFirst(300L, TimeUnit.MILLISECONDS)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { location: Location ->
@@ -160,6 +162,7 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         Timber.d("onQueryTextSubmit  = $query")
+                        onActionViewCollapsed()
                         query?.let {
 
                             val intent =
