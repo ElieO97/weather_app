@@ -14,6 +14,7 @@ import com.elieomatuku.domain.model.Location
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.search.SearchResultActivity
+import com.elieomatuku.presentation.ui.weather.WeatherActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject

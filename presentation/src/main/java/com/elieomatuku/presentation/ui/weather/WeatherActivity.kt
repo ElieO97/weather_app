@@ -1,10 +1,9 @@
-package com.elieomatuku.presentation.ui.favourites
+package com.elieomatuku.presentation.ui.weather
 
 import android.os.Bundle
 import android.view.MenuItem
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
-import com.elieomatuku.presentation.ui.weather.WeatherFragment
 
 /**
  * Created by elieomatuku on 2021-06-18
