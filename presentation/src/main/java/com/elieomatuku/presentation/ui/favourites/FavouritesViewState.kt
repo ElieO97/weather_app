@@ -8,5 +8,5 @@ import com.elieomatuku.domain.model.Location
 
 data class FavouritesViewState(
     val isLoading: Boolean = false,
-    val favourites: List<Location> = listOf()
+    val favourites: List<Location>? = null
 )

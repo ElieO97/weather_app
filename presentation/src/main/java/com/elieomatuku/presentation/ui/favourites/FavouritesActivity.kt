@@ -12,6 +12,9 @@ import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.search.SearchResultActivity
 import kotlinx.android.synthetic.main.activity_favourites.*
+import kotlinx.android.synthetic.main.activity_favourites.emptyTv
+import kotlinx.android.synthetic.main.activity_favourites.progressBar
+import kotlinx.android.synthetic.main.activity_search_result.*
 import timber.log.Timber
 
 /**
@@ -27,7 +30,12 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
         supportActionBar?.title = getString(R.string.favourites)
 
         viewModel.viewState.observe(this) {
+            Timber.d("favouritesViewState = $it")
             progressBar.isVisible = it.isLoading
+
+            it.favourites?.let { favourites ->
+                emptyTv.isVisible = favourites.isEmpty()
+            }
         }
     }
 
