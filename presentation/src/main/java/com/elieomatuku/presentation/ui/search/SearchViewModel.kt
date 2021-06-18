@@ -39,7 +39,7 @@ class SearchViewModel(
         }
     }
 
-    fun searchFavouriteLocation(location: Location) {
+    fun saveFavouriteLocation(location: Location) {
         viewModelScope.launch {
             state = state.copy(isLoading = true)
             val result =
@@ -47,7 +47,7 @@ class SearchViewModel(
             state = when (result) {
                 is Success -> state.copy(
                     isLoading = false,
-                    newFavouriteLocation = false
+                    newFavouriteLocation = true
                 )
 
                 is Fail -> state.copy(

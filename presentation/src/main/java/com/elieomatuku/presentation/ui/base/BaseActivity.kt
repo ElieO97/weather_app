@@ -26,6 +26,10 @@ abstract class BaseActivity : AppCompatActivity, KodeinAware {
     val viewModelFactory: ViewModelProvider.Factory by instance()
     val fusedLocationClient: FusedLocationProviderClient by instance()
 
+    protected val rxSubs: io.reactivex.disposables.CompositeDisposable by lazy {
+        io.reactivex.disposables.CompositeDisposable()
+    }
+
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)
 
@@ -38,5 +42,10 @@ abstract class BaseActivity : AppCompatActivity, KodeinAware {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.elevation = 0f
+    }
+
+    override fun onDestroy() {
+        rxSubs.clear()
+        super.onDestroy()
     }
 }
