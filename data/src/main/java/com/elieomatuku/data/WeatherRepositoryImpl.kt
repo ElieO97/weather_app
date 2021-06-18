@@ -93,7 +93,6 @@ class WeatherRepositoryImpl(
         try {
             val dataStore = factory.retrieveDataStore(lat, long)
             if (dataStore is WeatherRemoteDataStore) {
-                println("weather = $weather")
                 locationRepository.saveFavouriteLocation(weather.location)
                 factory.retrieveCacheDataStore()
                     .saveCurrentWeather(WeatherEntity.fromWeather(weather))
