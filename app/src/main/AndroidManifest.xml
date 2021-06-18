@@ -30,6 +30,7 @@
         </activity>
 
         <activity android:name="com.elieomatuku.presentation.ui.search.SearchResultActivity"/>
+        <activity android:name="com.elieomatuku.presentation.ui.favourites.WeatherActivity"/>
 
     </application>
 

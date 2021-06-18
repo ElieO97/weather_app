@@ -15,6 +15,7 @@ import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.search.SearchResultActivity
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_favourites.*
 import kotlinx.android.synthetic.main.activity_favourites.emptyTv
@@ -63,6 +64,25 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
     override fun onResume() {
         super.onResume()
         viewModel.getFavouriteLocations()
+
+        rxSubs.add(
+            (
+                locationSelectionObservable
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { location: Location ->
+                            val intent = Intent(this, WeatherActivity::class.java)
+                            intent.putExtra("long", location.longitude)
+                            intent.putExtra("lat", location.latitude)
+
+                            startActivity(intent)
+                        },
+                        { t: Throwable ->
+                            Timber.e("addLocationObservable failed:$t")
+                        }
+                    )
+                )
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
