@@ -1,20 +1,22 @@
-package com.elieomatuku.presentation.ui.weather
+package com.elieomatuku.presentation.ui.weather.favouritelocations
 
 import android.os.Bundle
 import android.view.View
+import com.elieomatuku.presentation.ui.weather.BaseWeatherFragment
+import com.elieomatuku.presentation.ui.weather.BaseWeatherViewModel
 import timber.log.Timber
 
 /**
  * Created by elieomatuku on 2021-06-18
  */
 
-class WeatherFragment : BaseWeatherFragment() {
+class FavouriteLocationWeatherFragment : BaseWeatherFragment() {
     companion object {
         private const val LONG = "long"
         private const val LAT = "lat"
 
         fun newInstance(lat: Double, long: Double): BaseWeatherFragment {
-            val fragment = WeatherFragment()
+            val fragment = FavouriteLocationWeatherFragment()
             val args = Bundle()
             args.putDouble(LAT, lat)
             args.putDouble(LONG, long)

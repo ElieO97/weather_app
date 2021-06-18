@@ -13,8 +13,8 @@ import com.elieomatuku.domain.interactor.weather.GetFavouriteLocationCurrentWeat
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.favourites.FavouritesViewModel
 import com.elieomatuku.presentation.ui.search.SearchViewModel
-import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherViewModel
-import com.elieomatuku.presentation.ui.weather.FavouriteLocationWeatherViewModel
+import com.elieomatuku.presentation.ui.weather.currentlocation.CurrentLocationWeatherViewModel
+import com.elieomatuku.presentation.ui.weather.favouritelocations.FavouriteLocationWeatherViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.kodein.di.Kodein
