@@ -24,6 +24,8 @@ class WeatherFragment : BaseWeatherFragment() {
         }
     }
 
+    override val viewModel: BaseWeatherViewModel by viewModel<FavouriteLocationWeatherViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lat = arguments?.getDouble(LAT, 0.0) ?: 0.0
         long = arguments?.getDouble(LONG) ?: 0.0

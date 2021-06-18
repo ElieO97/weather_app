@@ -24,6 +24,8 @@ class CurrentLocationWeatherFragment : BaseWeatherFragment() {
         }
     }
 
+    override val viewModel: BaseWeatherViewModel by viewModel<CurrentLocationWeatherViewModel>()
+
     private val requestMultiplePermissions =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
 
@@ -84,7 +86,7 @@ class CurrentLocationWeatherFragment : BaseWeatherFragment() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 Timber.d("location = ${location?.longitude} ${location?.latitude}")
                 location?.let {
-                    viewModel.getCurrentLocationCurrentWeather(
+                    viewModel.getLocationCurrentWeather(
                         location.latitude,
                         location.longitude
                     )

@@ -13,7 +13,8 @@ import com.elieomatuku.domain.interactor.weather.GetFavouriteLocationCurrentWeat
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.favourites.FavouritesViewModel
 import com.elieomatuku.presentation.ui.search.SearchViewModel
-import com.elieomatuku.presentation.ui.weather.WeatherViewModel
+import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherViewModel
+import com.elieomatuku.presentation.ui.weather.FavouriteLocationWeatherViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.kodein.di.Kodein
@@ -72,8 +73,12 @@ object PresentationKodeinModule {
                 DeleteFavouriteLocation(instance())
             }
 
-            bindViewModel<WeatherViewModel>() with provider {
-                WeatherViewModel(instance(), instance(), instance())
+            bindViewModel<CurrentLocationWeatherViewModel>() with provider {
+                CurrentLocationWeatherViewModel(instance(), instance())
+            }
+
+            bindViewModel<FavouriteLocationWeatherViewModel>() with provider {
+                FavouriteLocationWeatherViewModel(instance(), instance())
             }
 
             bindViewModel<FavouritesViewModel>() with provider {

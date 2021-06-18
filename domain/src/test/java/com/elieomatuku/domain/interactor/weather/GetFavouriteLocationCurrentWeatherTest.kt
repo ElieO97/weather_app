@@ -35,6 +35,8 @@ class GetFavouriteLocationCurrentWeatherTest {
                 minimumTemperature = 16.0,
                 maximumTemperature = 25.0,
                 weatherCondition = WeatherCondition.Cloudy,
+                weatherConditionDescription = "cloudy",
+                weatherConditionId = 8001,
                 location = Location(
                     "Cape Town",
                     75.0,
@@ -60,6 +62,8 @@ class GetFavouriteLocationCurrentWeatherTest {
                         minimumTemperature = 16.0,
                         maximumTemperature = 25.0,
                         weatherCondition = WeatherCondition.Cloudy,
+                        weatherConditionDescription = "cloudy",
+                        weatherConditionId = 8001,
                         location = Location(
                             "Cape Town",
                             75.0,
