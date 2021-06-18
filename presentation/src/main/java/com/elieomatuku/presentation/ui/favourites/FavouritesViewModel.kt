@@ -3,6 +3,7 @@ package com.elieomatuku.presentation.ui.favourites
 import androidx.lifecycle.viewModelScope
 import com.elieomatuku.domain.interactor.Fail
 import com.elieomatuku.domain.interactor.Success
+import com.elieomatuku.domain.interactor.location.DeleteFavouriteLocation
 import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.runUseCase
 import com.elieomatuku.domain.model.Location
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
  * Created by elieomatuku on 2021-06-18
  */
 
-class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocations) :
+class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocations, private val deleteFavouriteLocation: DeleteFavouriteLocation) :
     BaseViewModel<FavouritesViewState>(FavouritesViewState()) {
 
     init {
@@ -40,5 +41,8 @@ class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocatio
     }
 
     fun deleteFavouriteLocation(location: Location) {
+        viewModelScope.launch {
+            runUseCase(deleteFavouriteLocation, location)
+        }
     }
 }

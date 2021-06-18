@@ -2,6 +2,7 @@ package com.elieomatuku.presentation.injection
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import com.elieomatuku.domain.interactor.location.DeleteFavouriteLocation
 import com.elieomatuku.domain.interactor.location.GetCurrentLocation
 import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.location.GetLocationDetails
@@ -62,12 +63,16 @@ object PresentationKodeinModule {
                 SearchLocation(instance())
             }
 
+            bind<DeleteFavouriteLocation>() with singleton {
+                DeleteFavouriteLocation(instance())
+            }
+
             bindViewModel<WeatherViewModel>() with provider {
                 WeatherViewModel(instance(), instance())
             }
 
             bindViewModel<FavouritesViewModel>() with provider {
-                FavouritesViewModel(instance())
+                FavouritesViewModel(instance(), instance())
             }
 
             bindViewModel<SearchViewModel>() with provider {
