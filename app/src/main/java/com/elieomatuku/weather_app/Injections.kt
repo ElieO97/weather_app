@@ -158,7 +158,7 @@ fun depInject(app: Application): Kodein {
         }
 
         bind<WeatherRepository>() with singleton {
-            WeatherRepositoryImpl(instance())
+            WeatherRepositoryImpl(instance(), instance())
         }
 
         importOnce(PresentationKodeinModule.getModule())

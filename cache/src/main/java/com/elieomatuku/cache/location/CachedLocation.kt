@@ -10,7 +10,7 @@ import com.elieomatuku.data.model.LocationEntity
 
 @Entity(tableName = CachedLocation.LOCATION_TABLE)
 data class CachedLocation(
-    @PrimaryKey(autoGenerate = true) val id: Long? = null,
+    @PrimaryKey val id: Long?,
     val name: String,
     val latitude: Double,
     val longitude: Double,
@@ -34,6 +34,7 @@ data class CachedLocation(
             favouriteLocation: Boolean? = null
         ): CachedLocation {
             return CachedLocation(
+                id = location.id,
                 name = location.name,
                 latitude = location.latitude,
                 longitude = location.longitude,
