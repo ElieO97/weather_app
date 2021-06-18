@@ -30,7 +30,11 @@
         </activity>
 
         <activity android:name="com.elieomatuku.presentation.ui.search.SearchResultActivity"/>
-        <activity android:name="com.elieomatuku.presentation.ui.weather.WeatherActivity"/>
+        <activity android:name="com.elieomatuku.presentation.ui.weather.WeatherActivity"
+            android:launchMode="singleTask"
+            >
+
+        </activity>
 
     </application>
 
