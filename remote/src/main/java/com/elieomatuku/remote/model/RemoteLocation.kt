@@ -24,5 +24,14 @@ data class RemoteLocation(
                 id = remoteLocation.id
             )
         }
+
+        fun toLocationEntity(remoteLocation: GeoRemoteLocation): LocationEntity {
+            return LocationEntity(
+                name = remoteLocation.name ?: "",
+                latitude = remoteLocation.lat ?: 0.0,
+                longitude = remoteLocation.lon ?: 0.0,
+                id = remoteLocation.id
+            )
+        }
     }
 }

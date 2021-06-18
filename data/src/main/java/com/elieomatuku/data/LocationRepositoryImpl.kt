@@ -38,18 +38,23 @@ class LocationRepositoryImpl(private val factory: LocationDataStoreFactory) : Lo
     }
 
     override suspend fun saveFavouriteLocation(location: Location) {
-        factory.retrieveCacheDataStore().saveFavouriteLocation(location.let(LocationEntity::fromLocation))
+        factory.retrieveCacheDataStore()
+            .saveFavouriteLocation(location.let(LocationEntity::fromLocation))
     }
 
     override suspend fun saveCurrentLocation(location: Location) {
-        factory.retrieveCacheDataStore().saveCurrentLocation(location.let(LocationEntity::fromLocation))
+        factory.retrieveCacheDataStore()
+            .saveCurrentLocation(location.let(LocationEntity::fromLocation))
     }
 
     override suspend fun deleteFavouriteLocation(location: Location) {
-        factory.retrieveCacheDataStore().deleteFavouriteLocation(location.let(LocationEntity::fromLocation))
+        factory.retrieveCacheDataStore()
+            .deleteFavouriteLocation(location.let(LocationEntity::fromLocation))
     }
 
     override suspend fun searchLocation(name: String): List<Location> {
-        TODO("Not yet implemented")
+        return factory.retrieveRemoteDataStore().searchLocation(name).map {
+            LocationEntity.toLocation(it)
+        }
     }
 }

@@ -1,10 +1,12 @@
 package com.elieomatuku.presentation.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import com.elieomatuku.presentation.ui.favourites.FavouritesActivity
 import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -18,9 +20,18 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.elevation = 0f
+
+        navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.favourites_item -> {
+                    startActivity(Intent(this, FavouritesActivity::class.java))
+                }
+
+                R.id.map_item -> {
+                }
+            }
+            false
+        }
 
         supportFragmentManager.beginTransaction()
             .replace(

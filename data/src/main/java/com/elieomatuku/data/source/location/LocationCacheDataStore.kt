@@ -32,4 +32,8 @@ class LocationCacheDataStore(private val locationCache: LocationCache) : Locatio
     override suspend fun getFavouriteLocations(): List<LocationEntity> {
         return locationCache.getFavouriteLocations()
     }
+
+    override suspend fun searchLocation(name: String): List<LocationEntity> {
+        throw UnsupportedOperationException()
+    }
 }

@@ -15,11 +15,11 @@ import timber.log.Timber
  * Created by elieomatuku on 2021-06-16
  */
 
-class CurrentLocationWeatherFragment : WeatherFragment() {
+class CurrentLocationWeatherFragment : BaseWeatherFragment() {
     companion object {
         private const val LOCATION_REQUEST_INTERVAL: Long = 10000
 
-        fun newInstance(): WeatherFragment {
+        fun newInstance(): BaseWeatherFragment {
             return CurrentLocationWeatherFragment()
         }
     }

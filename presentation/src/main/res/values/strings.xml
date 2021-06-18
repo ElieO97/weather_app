@@ -8,4 +8,9 @@
     <string name="min">min</string>
     <string name="max">max</string>
     <string name="current">Current</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search a location</string>
+    <string name="no_results">No Results Found For Your Search</string>
+    <string name="no_favourites">No Favourites Found. Search and Add Your Favourite Locations.</string>
+    <string name="delete_label">Delete Location</string>
 </resources>
