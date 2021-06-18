@@ -18,6 +18,7 @@ import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.search.SearchResultActivity
 import com.elieomatuku.presentation.ui.weather.WeatherActivity
+import com.elieomatuku.presentation.utils.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
@@ -57,6 +58,7 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = getString(R.string.favourites)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
 
         viewModel.viewState.observe(this) {
             Timber.d("favouritesViewState = $it")
@@ -83,8 +85,9 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
                     .subscribe(
                         { location: Location ->
                             val intent = Intent(this, WeatherActivity::class.java)
-                            intent.putExtra("long", location.longitude)
-                            intent.putExtra("lat", location.latitude)
+                            intent.putExtra(Constants.LONG, location.longitude)
+                            intent.putExtra(Constants.LAT, location.latitude)
+                            intent.putExtra(Constants.LOCATION_NAME, location.name)
 
                             startActivity(intent)
                         },
@@ -132,7 +135,7 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
                                     this@FavouritesActivity,
                                     SearchResultActivity::class.java
                                 )
-                            intent.putExtra("query", it)
+                            intent.putExtra(Constants.QUERY, it)
                             startActivity(intent)
                         }
                         return false

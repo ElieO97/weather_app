@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.Location
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import com.elieomatuku.presentation.utils.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
@@ -47,7 +48,10 @@ class SearchResultActivity : BaseActivity(R.layout.activity_search_result) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val query = intent.getStringExtra("query")
+        supportActionBar?.title = getString(R.string.search)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+
+        val query = intent.getStringExtra(Constants.QUERY)
         query?.let {
             viewModel.searchLocation(it)
         }
