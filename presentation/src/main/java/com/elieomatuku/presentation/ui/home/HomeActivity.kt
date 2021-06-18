@@ -20,9 +20,6 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
-//        supportActionBar?.elevation = 0f
 
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {

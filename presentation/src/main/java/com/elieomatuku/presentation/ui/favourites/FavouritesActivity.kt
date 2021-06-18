@@ -2,6 +2,7 @@ package com.elieomatuku.presentation.ui.favourites
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import com.elieomatuku.presentation.ui.search.SearchResultActivity
 import kotlinx.android.synthetic.main.activity_favourites.*
 import timber.log.Timber
 
@@ -27,12 +29,11 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
         viewModel.viewState.observe(this) {
             progressBar.isVisible = it.isLoading
         }
+    }
 
-        viewModel.searchResultsData.observe(this) {
-            if (!it.isNullOrEmpty()) {
-                Timber.d("searchResult = $it")
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavouriteLocations()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -65,7 +66,14 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         Timber.d("onQueryTextSubmit  = $query")
                         query?.let {
-                            viewModel.searchLocation(it)
+
+                            val intent =
+                                Intent(
+                                    this@FavouritesActivity,
+                                    SearchResultActivity::class.java
+                                )
+                            intent.putExtra("query", it)
+                            startActivity(intent)
                         }
                         return false
                     }

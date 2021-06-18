@@ -1,12 +1,10 @@
 package com.elieomatuku.presentation.ui.favourites
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elieomatuku.domain.interactor.Fail
 import com.elieomatuku.domain.interactor.Success
-import com.elieomatuku.domain.interactor.location.SearchLocation
+import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.runUseCase
-import com.elieomatuku.domain.model.Location
 import com.elieomatuku.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -14,26 +12,29 @@ import kotlinx.coroutines.launch
  * Created by elieomatuku on 2021-06-18
  */
 
-class FavouritesViewModel(private val searchLocation: SearchLocation) :
+class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocations) :
     BaseViewModel<FavouritesViewState>(FavouritesViewState()) {
 
-    val searchResultsData = MutableLiveData<List<Location>>(listOf())
+    init {
+        getFavouriteLocations()
+    }
 
-    fun searchLocation(name: String) {
+    fun getFavouriteLocations() {
         viewModelScope.launch {
             state = state.copy(isLoading = true)
             val result =
-                runUseCase(searchLocation, SearchLocation.Input(name))
-            when (result) {
-                is Success -> searchResultsData.value = result.data!!
+                runUseCase(getFavouriteLocations, Unit)
+            state = when (result) {
+                is Success -> state.copy(
+                    isLoading = false,
+                    favourites = result.data
+                )
 
-                is Fail -> {
-                }
-
-                else -> {
-                }
+                is Fail -> state.copy(
+                    isLoading = false
+                )
+                else -> FavouritesViewState()
             }
-            state = state.copy(isLoading = false)
         }
     }
 }
