@@ -3,11 +3,14 @@ package com.elieomatuku.presentation.ui.favourites
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.Location
@@ -34,6 +37,13 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
 
     private val favouritesRv: RecyclerView by lazy {
         val view = favouritesRV
+        val itemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        val drawable: Drawable? =
+            ResourcesCompat.getDrawable(resources, R.drawable.item_decoration, theme)
+        if (drawable != null) {
+            itemDecoration.setDrawable(drawable)
+        }
+        view.addItemDecoration(itemDecoration)
         view.layoutManager = LinearLayoutManager(this)
         view
     }
