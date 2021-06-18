@@ -5,6 +5,7 @@ import com.elieomatuku.domain.interactor.Fail
 import com.elieomatuku.domain.interactor.Success
 import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.runUseCase
+import com.elieomatuku.domain.model.Location
 import com.elieomatuku.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -36,5 +37,8 @@ class FavouritesViewModel(private val getFavouriteLocations: GetFavouriteLocatio
                 else -> FavouritesViewState()
             }
         }
+    }
+
+    fun deleteFavouriteLocation(location: Location) {
     }
 }

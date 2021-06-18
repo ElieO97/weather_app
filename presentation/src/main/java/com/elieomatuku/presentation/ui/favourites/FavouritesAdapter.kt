@@ -10,8 +10,9 @@ import io.reactivex.subjects.PublishSubject
  */
 
 class FavouritesAdapter(
-    private val favourites: List<Location>,
-    private val addLocationPublisher: PublishSubject<Location>
+    private val favourites: MutableList<Location>,
+    private val locationSelectionPublisher: PublishSubject<Location>,
+    private val locationDeletionPublisher: PublishSubject<Location>
 ) :
     RecyclerView.Adapter<FavouritesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesViewHolder {
@@ -22,11 +23,18 @@ class FavouritesAdapter(
         val location = favourites[position]
         holder.update(location)
         holder.itemView.setOnClickListener {
-            addLocationPublisher.onNext(location)
+            locationSelectionPublisher.onNext(location)
         }
     }
 
     override fun getItemCount(): Int {
         return favourites.size
+    }
+
+    fun deleteFavourite(position: Int) {
+        val location = favourites[position]
+        locationDeletionPublisher.onNext(location)
+        favourites.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

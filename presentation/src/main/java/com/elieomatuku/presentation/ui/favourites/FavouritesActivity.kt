@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elieomatuku.domain.model.Location
@@ -19,6 +20,7 @@ import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.search.SearchResultActivity
 import com.elieomatuku.presentation.ui.weather.WeatherActivity
 import com.elieomatuku.presentation.utils.Constants
+import com.elieomatuku.presentation.utils.SwipeToDeleteSimpleCallback
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
@@ -55,6 +57,12 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
     private val locationSelectionObservable: Observable<Location>
         get() = locationSelectionPublisher.hide()
 
+    private val locationDeletionPublisher: PublishSubject<Location> by lazy {
+        PublishSubject.create<Location>()
+    }
+    private val locationDeletionObservable: Observable<Location>
+        get() = locationSelectionPublisher.hide()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = getString(R.string.favourites)
@@ -68,7 +76,15 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
                 emptyTv.isVisible = favourites.isEmpty()
 
                 if (favourites.isNotEmpty()) {
-                    favouritesRv.adapter = FavouritesAdapter(favourites, locationSelectionPublisher)
+                    val adapter = FavouritesAdapter(
+                        favourites.toMutableList(),
+                        locationSelectionPublisher,
+                        locationDeletionPublisher
+                    )
+
+                    val itemTouchHelper = ItemTouchHelper(SwipeToDeleteSimpleCallback(adapter))
+                    itemTouchHelper.attachToRecyclerView(favouritesRv)
+                    favouritesRv.adapter = adapter
                 }
             }
         }
@@ -90,6 +106,22 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
                             intent.putExtra(Constants.LOCATION_NAME, location.name)
 
                             startActivity(intent)
+                        },
+                        { t: Throwable ->
+                            Timber.e("addLocationObservable failed:$t")
+                        }
+                    )
+                )
+        )
+
+        rxSubs.add(
+            (
+                locationDeletionObservable
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { location: Location ->
+                            Timber.d("delete favourite location = $location")
+                            viewModel.deleteFavouriteLocation(location)
                         },
                         { t: Throwable ->
                             Timber.e("addLocationObservable failed:$t")
