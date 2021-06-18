@@ -8,6 +8,6 @@ import com.elieomatuku.domain.model.Location
 
 data class SearchViewState(
     val isLoading: Boolean = true,
-    val searchResult: List<Location> = listOf(),
+    val searchResult: List<Location>? = null,
     val newFavouriteLocation: Boolean = false
 )

@@ -1,6 +1,7 @@
 package com.elieomatuku.presentation.ui.search
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,12 +35,25 @@ class SearchResultActivity : BaseActivity(R.layout.activity_search_result) {
         viewModel.viewState.observe(this) {
             Timber.d("searchViewState = $it")
 
-            if (!it.searchResult.isNullOrEmpty()) {
-                emptyTv.isVisible = false
-                resultsRv.adapter = SearchResultAdapter(it.searchResult)
-            } else {
-                emptyTv.isVisible = true
+            progressBar.isVisible = it.isLoading
+
+            it.searchResult?.let { result ->
+                emptyTv.isVisible = result.isEmpty()
+
+                if (result.isNotEmpty()) {
+                    resultsRv.adapter = SearchResultAdapter(it.searchResult)
+                }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                super.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
