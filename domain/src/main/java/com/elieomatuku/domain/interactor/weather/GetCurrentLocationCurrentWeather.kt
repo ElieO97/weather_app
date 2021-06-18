@@ -7,16 +7,21 @@ import com.elieomatuku.domain.model.Weather
 import com.elieomatuku.domain.repository.WeatherRepository
 
 /**
- * Created by elieomatuku on 2021-06-12
+ * Created by elieomatuku on 2021-06-19
  */
 
-class GetLocationCurrentWeather(private val weatherRepository: WeatherRepository) :
-    UseCase<GetLocationCurrentWeather.Input, CompleteResult<Weather>> {
+class GetCurrentLocationCurrentWeather(private val weatherRepository: WeatherRepository) :
+    UseCase<GetCurrentLocationCurrentWeather.Input, CompleteResult<Weather>> {
 
     override suspend fun execute(params: Input): CompleteResult<Weather> {
         return safeUseCaseCall {
+            val weather = weatherRepository.getLocationCurrentWeather(
+                params.latitude,
+                params.longitude
+            )
 
-            return@safeUseCaseCall weatherRepository.getLocationCurrentWeather(
+            return@safeUseCaseCall weatherRepository.saveCurrentLocationWeather(
+                weather,
                 params.latitude,
                 params.longitude
             )

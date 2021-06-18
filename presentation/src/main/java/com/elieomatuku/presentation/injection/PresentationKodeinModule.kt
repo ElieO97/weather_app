@@ -8,7 +8,8 @@ import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.location.GetLocationDetails
 import com.elieomatuku.domain.interactor.location.SaveFavouriteLocation
 import com.elieomatuku.domain.interactor.location.SearchLocation
-import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
+import com.elieomatuku.domain.interactor.weather.GetCurrentLocationCurrentWeather
+import com.elieomatuku.domain.interactor.weather.GetFavouriteLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.favourites.FavouritesViewModel
 import com.elieomatuku.presentation.ui.search.SearchViewModel
@@ -51,12 +52,16 @@ object PresentationKodeinModule {
                 SaveFavouriteLocation(instance())
             }
 
-            bind<GetLocationCurrentWeather>() with singleton {
-                GetLocationCurrentWeather(instance())
+            bind<GetFavouriteLocationCurrentWeather>() with singleton {
+                GetFavouriteLocationCurrentWeather(instance())
             }
 
             bind<GetLocationFiveDayForecast>() with singleton {
                 GetLocationFiveDayForecast(instance())
+            }
+
+            bind<GetCurrentLocationCurrentWeather>() with singleton {
+                GetCurrentLocationCurrentWeather(instance())
             }
 
             bind<SearchLocation>() with singleton {
@@ -68,7 +73,7 @@ object PresentationKodeinModule {
             }
 
             bindViewModel<WeatherViewModel>() with provider {
-                WeatherViewModel(instance(), instance())
+                WeatherViewModel(instance(), instance(), instance())
             }
 
             bindViewModel<FavouritesViewModel>() with provider {

@@ -21,9 +21,9 @@ import org.mockito.kotlin.mock
  * Created by elieomatuku on 2021-06-12
  */
 
-class GetLocationCurrentWeatherTest {
+class GetFavouriteLocationCurrentWeatherTest {
 
-    private lateinit var getLocationCurrentWeather: GetLocationCurrentWeather
+    private lateinit var getLocationCurrentWeather: GetFavouriteLocationCurrentWeather
 
     private lateinit var mockWeatherRepository: WeatherRepository
 
@@ -45,14 +45,14 @@ class GetLocationCurrentWeatherTest {
             )
         }
 
-        getLocationCurrentWeather = GetLocationCurrentWeather(mockWeatherRepository)
+        getLocationCurrentWeather = GetFavouriteLocationCurrentWeather(mockWeatherRepository)
     }
 
     @Test
     fun success() {
         runBlocking {
             val result =
-                runUseCase(getLocationCurrentWeather, GetLocationCurrentWeather.Input(75.0, 89.0))
+                runUseCase(getLocationCurrentWeather, GetFavouriteLocationCurrentWeather.Input(75.0, 89.0))
             expect(result).toBe(
                 Success(
                     Weather(
@@ -85,7 +85,7 @@ class GetLocationCurrentWeatherTest {
             ).`when`(mockWeatherRepository).getLocationCurrentWeather(any(), any())
 
             val result =
-                runUseCase(getLocationCurrentWeather, GetLocationCurrentWeather.Input(75.0, 89.0))
+                runUseCase(getLocationCurrentWeather, GetFavouriteLocationCurrentWeather.Input(75.0, 89.0))
             expect(result).toBe(
                 Fail(
                     RepositoryException(

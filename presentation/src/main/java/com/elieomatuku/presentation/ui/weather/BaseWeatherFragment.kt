@@ -72,7 +72,7 @@ abstract class BaseWeatherFragment : BaseFragment(R.layout.fragment_weather) {
     }
 
     open fun refreshWeather() {
-        viewModel.getLocationCurrentWeather(lat, long)
+        viewModel.getFavouriteLocationCurrentWeather(lat, long)
     }
 
     open fun changeStatusAndActionBarColor(resColor: Int) {

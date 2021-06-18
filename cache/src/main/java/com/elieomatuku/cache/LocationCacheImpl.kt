@@ -21,11 +21,18 @@ class LocationCacheImpl(private val locationDao: LocationDao) : LocationCache {
 
     override fun saveFavouriteLocation(location: LocationEntity) {
         val cachedLocation = CachedLocation.toCacheLocation(location, favouriteLocation = true)
+        if (locationDao.getLocation(cachedLocation.latitude, cachedLocation.longitude) != null) {
+            locationDao.deleteFavouriteLocation(cachedLocation.latitude, cachedLocation.longitude)
+        }
+
         locationDao.saveLocation(cachedLocation)
     }
 
     override fun saveCurrentLocation(location: LocationEntity) {
         val cachedLocation = CachedLocation.toCacheLocation(location, currentLocation = true)
+        if (locationDao.getCurrentLocation() != null) {
+            locationDao.deleteCurrentLocation()
+        }
         locationDao.saveLocation(cachedLocation)
     }
 
@@ -34,7 +41,7 @@ class LocationCacheImpl(private val locationDao: LocationDao) : LocationCache {
     }
 
     override fun getCurrentLocation(): LocationEntity {
-        val currentLocation = locationDao.getCurrentLocation()
+        val currentLocation = locationDao.getCurrentLocation()!!
         return currentLocation.let(CachedLocation::toLocationEntity)
     }
 

@@ -4,7 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.elieomatuku.domain.interactor.Fail
 import com.elieomatuku.domain.interactor.Success
 import com.elieomatuku.domain.interactor.runUseCase
-import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
+import com.elieomatuku.domain.interactor.weather.GetCurrentLocationCurrentWeather
+import com.elieomatuku.domain.interactor.weather.GetFavouriteLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -14,16 +15,43 @@ import kotlinx.coroutines.launch
  */
 
 class WeatherViewModel(
-    private val getLocationCurrentWeather: GetLocationCurrentWeather,
+    private val getFavouriteLocationCurrentWeather: GetFavouriteLocationCurrentWeather,
+    private val getCurrentLocationCurrentWeather: GetCurrentLocationCurrentWeather,
     private val getLocationFiveDayForecast: GetLocationFiveDayForecast
 ) :
     BaseViewModel<WeatherViewState>(WeatherViewState()) {
 
-    fun getLocationCurrentWeather(lat: Double, long: Double) {
+    fun getFavouriteLocationCurrentWeather(lat: Double, long: Double) {
         viewModelScope.launch {
             state = state.copy(isLoading = true)
             val result =
-                runUseCase(getLocationCurrentWeather, GetLocationCurrentWeather.Input(lat, long))
+                runUseCase(
+                    getFavouriteLocationCurrentWeather,
+                    GetFavouriteLocationCurrentWeather.Input(lat, long)
+                )
+            state = when (result) {
+                is Success -> state.copy(
+                    isLoading = false,
+                    weather = result.data
+                )
+
+                is Fail -> state.copy(
+                    isLoading = false
+                )
+                else -> WeatherViewState()
+            }
+        }
+        getLocationFiveDayForecast(lat, long)
+    }
+
+    fun getCurrentLocationCurrentWeather(lat: Double, long: Double) {
+        viewModelScope.launch {
+            state = state.copy(isLoading = true)
+            val result =
+                runUseCase(
+                    getCurrentLocationCurrentWeather,
+                    GetCurrentLocationCurrentWeather.Input(lat, long)
+                )
             state = when (result) {
                 is Success -> state.copy(
                     isLoading = false,

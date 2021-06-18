@@ -84,7 +84,10 @@ class CurrentLocationWeatherFragment : BaseWeatherFragment() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 Timber.d("location = ${location?.longitude} ${location?.latitude}")
                 location?.let {
-                    viewModel.getLocationCurrentWeather(location.latitude, location.longitude)
+                    viewModel.getCurrentLocationCurrentWeather(
+                        location.latitude,
+                        location.longitude
+                    )
                 } ?: startLocationUpdates()
             }
         }
