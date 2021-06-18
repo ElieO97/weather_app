@@ -8,9 +8,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.elieomatuku.domain.model.Location
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.search.SearchResultActivity
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_favourites.*
 import kotlinx.android.synthetic.main.activity_favourites.emptyTv
 import kotlinx.android.synthetic.main.activity_favourites.progressBar
@@ -25,6 +30,18 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
 
     private val viewModel: FavouritesViewModel by viewModel<FavouritesViewModel>()
 
+    private val favouritesRv: RecyclerView by lazy {
+        val view = favouritesRV
+        view.layoutManager = LinearLayoutManager(this)
+        view
+    }
+
+    private val locationSelectionPublisher: PublishSubject<Location> by lazy {
+        PublishSubject.create<Location>()
+    }
+    private val locationSelectionObservable: Observable<Location>
+        get() = locationSelectionPublisher.hide()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = getString(R.string.favourites)
@@ -35,6 +52,10 @@ class FavouritesActivity : BaseActivity(R.layout.activity_favourites) {
 
             it.favourites?.let { favourites ->
                 emptyTv.isVisible = favourites.isEmpty()
+
+                if (favourites.isNotEmpty()) {
+                    favouritesRv.adapter = FavouritesAdapter(favourites, locationSelectionPublisher)
+                }
             }
         }
     }
