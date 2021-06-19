@@ -12,6 +12,7 @@ import com.elieomatuku.data.source.weather.WeatherRemoteDataStore
 import com.elieomatuku.domain.model.Location
 import com.elieomatuku.domain.model.Weather
 import com.elieomatuku.domain.model.WeatherCondition
+import com.elieomatuku.domain.repository.LocationRepository
 import com.nhaarman.expect.expect
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -28,6 +29,7 @@ class WeatherRepositoryImplTest {
 
     lateinit var weatherRepositoryImpl: WeatherRepositoryImpl
     lateinit var factory: WeatherDataStoreFactory
+    lateinit var mockLocationRepository: LocationRepository
 
     private lateinit var weatherCacheDataStore: WeatherCacheDataStore
     private lateinit var weatherRemoteDataStore: WeatherRemoteDataStore
@@ -40,6 +42,7 @@ class WeatherRepositoryImplTest {
 
         mockWeatherCache = mock<WeatherCache>()
         mockWeatherRemote = mock<WeatherRemote>()
+        mockLocationRepository = mock<LocationRepository>()
 
         weatherCacheDataStore = WeatherCacheDataStore(mockWeatherCache)
         weatherRemoteDataStore = WeatherRemoteDataStore(mockWeatherRemote)
@@ -49,7 +52,7 @@ class WeatherRepositoryImplTest {
             weatherCacheDataStore,
             weatherRemoteDataStore
         )
-        weatherRepositoryImpl = WeatherRepositoryImpl(factory)
+        weatherRepositoryImpl = WeatherRepositoryImpl(factory, mockLocationRepository)
     }
 
     @Test
@@ -111,7 +114,10 @@ class WeatherRepositoryImplTest {
                         89.0
                     ),
                     date = 1245955959,
-                    lastUpdate = 3388339304494
+                    lastUpdate = 3388339304494,
+                    weatherConditionId = 800,
+                    weatherConditionDescription = "sunny",
+                    weatherConditionMain = "sunny"
                 )
             )
         }
@@ -176,7 +182,10 @@ class WeatherRepositoryImplTest {
                         89.0
                     ),
                     date = 1245955959,
-                    lastUpdate = 3388339304494
+                    lastUpdate = 3388339304494,
+                    weatherConditionId = 800,
+                    weatherConditionDescription = "sunny",
+                    weatherConditionMain = "sunny"
                 )
             )
         }

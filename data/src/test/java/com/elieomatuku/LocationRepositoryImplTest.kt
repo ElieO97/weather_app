@@ -90,8 +90,8 @@ class LocationRepositoryImplTest {
     fun getCurrentLocationFromRemote() {
         runBlocking {
             doReturn(
-                false
-            ).`when`(mockLocationCache).isCached(any(), any())
+                true
+            ).`when`(mockLocationCache).isExpiredCurrentLocation(any(), any())
 
             doReturn(
                 LocationEntity(

@@ -35,6 +35,9 @@ class WeatherEntityTest {
             location = Location("Cape Town", 80.0, 73.0),
             date = 123484,
             weatherCondition = WeatherCondition.Sunny,
+            weatherConditionId = 800,
+            weatherConditionMain = "sunny",
+            weatherConditionDescription = "sunny",
             lastUpdate = 13994449
         )
 

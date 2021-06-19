@@ -35,6 +35,9 @@ class GetLocationFiveDayForecastTest {
                     minimumTemperature = 16.0,
                     maximumTemperature = 25.0,
                     weatherCondition = WeatherCondition.Cloudy,
+                    weatherConditionMain = "cloudy",
+                    weatherConditionId = 801,
+                    weatherConditionDescription = "cloudy",
                     location = Location(
                         "Cape Town",
                         75.0,
@@ -48,6 +51,9 @@ class GetLocationFiveDayForecastTest {
                     minimumTemperature = 16.0,
                     maximumTemperature = 25.0,
                     weatherCondition = WeatherCondition.Cloudy,
+                    weatherConditionMain = "cloudy",
+                    weatherConditionId = 801,
+                    weatherConditionDescription = "cloudy",
                     location = Location(
                         "Cape Town",
                         75.0,
@@ -61,6 +67,9 @@ class GetLocationFiveDayForecastTest {
                     minimumTemperature = 16.0,
                     maximumTemperature = 25.0,
                     weatherCondition = WeatherCondition.Cloudy,
+                    weatherConditionMain = "cloudy",
+                    weatherConditionId = 801,
+                    weatherConditionDescription = "cloudy",
                     location = Location(
                         "Cape Town",
                         75.0,
@@ -74,6 +83,9 @@ class GetLocationFiveDayForecastTest {
                     minimumTemperature = 16.0,
                     maximumTemperature = 25.0,
                     weatherCondition = WeatherCondition.Cloudy,
+                    weatherConditionMain = "cloudy",
+                    weatherConditionId = 801,
+                    weatherConditionDescription = "cloudy",
                     location = Location(
                         "Cape Town",
                         75.0,
@@ -87,6 +99,9 @@ class GetLocationFiveDayForecastTest {
                     minimumTemperature = 16.0,
                     maximumTemperature = 25.0,
                     weatherCondition = WeatherCondition.Cloudy,
+                    weatherConditionMain = "cloudy",
+                    weatherConditionId = 801,
+                    weatherConditionDescription = "cloudy",
                     location = Location(
                         "Cape Town",
                         75.0,
@@ -120,7 +135,10 @@ class GetLocationFiveDayForecastTest {
                                 89.0
                             ),
                             date = 1245955959,
-                            lastUpdate = 3388339304494
+                            lastUpdate = 3388339304494,
+                            weatherConditionMain = "cloudy",
+                            weatherConditionId = 801,
+                            weatherConditionDescription = "cloudy",
                         ),
                         Weather(
                             temperature = 21.0,
@@ -133,7 +151,10 @@ class GetLocationFiveDayForecastTest {
                                 89.0
                             ),
                             date = 1245955959,
-                            lastUpdate = 3388339304494
+                            lastUpdate = 3388339304494,
+                            weatherConditionMain = "cloudy",
+                            weatherConditionId = 801,
+                            weatherConditionDescription = "cloudy",
                         ),
                         Weather(
                             temperature = 21.0,
@@ -146,7 +167,10 @@ class GetLocationFiveDayForecastTest {
                                 89.0
                             ),
                             date = 1245955959,
-                            lastUpdate = 3388339304494
+                            lastUpdate = 3388339304494,
+                            weatherConditionMain = "cloudy",
+                            weatherConditionId = 801,
+                            weatherConditionDescription = "cloudy",
                         ),
                         Weather(
                             temperature = 21.0,
@@ -159,7 +183,10 @@ class GetLocationFiveDayForecastTest {
                                 89.0
                             ),
                             date = 1245955959,
-                            lastUpdate = 3388339304494
+                            lastUpdate = 3388339304494,
+                            weatherConditionMain = "cloudy",
+                            weatherConditionId = 801,
+                            weatherConditionDescription = "cloudy",
                         ),
                         Weather(
                             temperature = 21.0,
@@ -172,7 +199,10 @@ class GetLocationFiveDayForecastTest {
                                 89.0
                             ),
                             date = 1245955959,
-                            lastUpdate = 3388339304494
+                            lastUpdate = 3388339304494,
+                            weatherConditionMain = "cloudy",
+                            weatherConditionId = 801,
+                            weatherConditionDescription = "cloudy",
                         )
                     )
                 )
