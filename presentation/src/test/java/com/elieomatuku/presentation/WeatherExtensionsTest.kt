@@ -27,7 +27,10 @@ class WeatherExtensionsTest {
             89.0
         ),
         date = 1245955959,
-        lastUpdate = 3388339304494
+        lastUpdate = 3388339304494,
+        weatherConditionDescription = "cloudy",
+        weatherConditionMain = "cloudy",
+        weatherConditionId = 801
     )
 
     @Test
