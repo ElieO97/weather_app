@@ -1,4 +1,4 @@
-package com.elieomatuku.presentation.ui.weather
+package com.elieomatuku.presentation.ui.weather.currentlocation
 
 import android.location.Location
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.os.Looper
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.elieomatuku.presentation.extensions.hasLocationPermissions
+import com.elieomatuku.presentation.ui.weather.BaseWeatherFragment
+import com.elieomatuku.presentation.ui.weather.BaseWeatherViewModel
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -23,6 +25,8 @@ class CurrentLocationWeatherFragment : BaseWeatherFragment() {
             return CurrentLocationWeatherFragment()
         }
     }
+
+    override val viewModel: BaseWeatherViewModel by viewModel<CurrentLocationWeatherViewModel>()
 
     private val requestMultiplePermissions =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -84,7 +88,10 @@ class CurrentLocationWeatherFragment : BaseWeatherFragment() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 Timber.d("location = ${location?.longitude} ${location?.latitude}")
                 location?.let {
-                    viewModel.getLocationCurrentWeather(location.latitude, location.longitude)
+                    viewModel.getLocationCurrentWeather(
+                        location.latitude,
+                        location.longitude
+                    )
                 } ?: startLocationUpdates()
             }
         }

@@ -8,11 +8,13 @@ import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.location.GetLocationDetails
 import com.elieomatuku.domain.interactor.location.SaveFavouriteLocation
 import com.elieomatuku.domain.interactor.location.SearchLocation
-import com.elieomatuku.domain.interactor.weather.GetLocationCurrentWeather
+import com.elieomatuku.domain.interactor.weather.GetCurrentLocationCurrentWeather
+import com.elieomatuku.domain.interactor.weather.GetFavouriteLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.favourites.FavouritesViewModel
 import com.elieomatuku.presentation.ui.search.SearchViewModel
-import com.elieomatuku.presentation.ui.weather.WeatherViewModel
+import com.elieomatuku.presentation.ui.weather.currentlocation.CurrentLocationWeatherViewModel
+import com.elieomatuku.presentation.ui.weather.favouritelocations.FavouriteLocationWeatherViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.kodein.di.Kodein
@@ -51,12 +53,16 @@ object PresentationKodeinModule {
                 SaveFavouriteLocation(instance())
             }
 
-            bind<GetLocationCurrentWeather>() with singleton {
-                GetLocationCurrentWeather(instance())
+            bind<GetFavouriteLocationCurrentWeather>() with singleton {
+                GetFavouriteLocationCurrentWeather(instance())
             }
 
             bind<GetLocationFiveDayForecast>() with singleton {
                 GetLocationFiveDayForecast(instance())
+            }
+
+            bind<GetCurrentLocationCurrentWeather>() with singleton {
+                GetCurrentLocationCurrentWeather(instance())
             }
 
             bind<SearchLocation>() with singleton {
@@ -67,8 +73,12 @@ object PresentationKodeinModule {
                 DeleteFavouriteLocation(instance())
             }
 
-            bindViewModel<WeatherViewModel>() with provider {
-                WeatherViewModel(instance(), instance())
+            bindViewModel<CurrentLocationWeatherViewModel>() with provider {
+                CurrentLocationWeatherViewModel(instance(), instance())
+            }
+
+            bindViewModel<FavouriteLocationWeatherViewModel>() with provider {
+                FavouriteLocationWeatherViewModel(instance(), instance())
             }
 
             bindViewModel<FavouritesViewModel>() with provider {

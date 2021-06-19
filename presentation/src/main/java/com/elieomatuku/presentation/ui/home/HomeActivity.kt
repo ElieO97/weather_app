@@ -7,7 +7,7 @@ import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.favourites.FavouritesActivity
-import com.elieomatuku.presentation.ui.weather.CurrentLocationWeatherFragment
+import com.elieomatuku.presentation.ui.weather.currentlocation.CurrentLocationWeatherFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 /**

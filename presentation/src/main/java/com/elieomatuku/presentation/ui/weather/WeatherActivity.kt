@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
+import com.elieomatuku.presentation.ui.weather.favouritelocations.FavouriteLocationWeatherFragment
 import com.elieomatuku.presentation.utils.Constants
 import timber.log.Timber
 
@@ -27,7 +28,7 @@ class WeatherActivity : BaseActivity(R.layout.activity_weather) {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.navHostContainer,
-                WeatherFragment.newInstance(lat, long)
+                FavouriteLocationWeatherFragment.newInstance(lat, long)
             )
             .commitAllowingStateLoss()
     }

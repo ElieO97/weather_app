@@ -28,7 +28,26 @@ data class WeatherEntity(
                 weekDay = weatherEntity.weekDay,
                 weatherCondition = weatherEntity.weatherConditionEntity.let(WeatherConditionEntity::toWeatherCondition),
                 weatherConditionMain = weatherEntity.weatherConditionEntity.main,
+                weatherConditionId = weatherEntity.weatherConditionEntity.id,
+                weatherConditionDescription = weatherEntity.weatherConditionEntity.description,
                 lastUpdate = weatherEntity.lastUpdatedInMilliseconds
+            )
+        }
+
+        fun fromWeather(weather: Weather): WeatherEntity {
+            return WeatherEntity(
+                temperature = weather.temperature,
+                minimumTemperature = weather.minimumTemperature,
+                maximumTemperature = weather.maximumTemperature,
+                location = weather.location.let(LocationEntity::fromLocation),
+                date = weather.date,
+                weekDay = weather.weekDay,
+                weatherConditionEntity = WeatherConditionEntity(
+                    id = weather.weatherConditionId,
+                    main = weather.weatherConditionMain ?: "",
+                    description = weather.weatherConditionDescription
+                ),
+                lastUpdatedInMilliseconds = weather.lastUpdate
             )
         }
 

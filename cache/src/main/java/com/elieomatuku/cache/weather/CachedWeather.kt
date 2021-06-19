@@ -1,7 +1,9 @@
 package com.elieomatuku.cache.weather
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.elieomatuku.cache.location.CachedLocation
 import com.elieomatuku.data.model.LocationEntity
 import com.elieomatuku.data.model.WeatherConditionEntity
 import com.elieomatuku.data.model.WeatherEntity
@@ -10,7 +12,17 @@ import com.elieomatuku.data.model.WeatherEntity
  * Created by elieomatuku on 2021-06-12
  */
 
-@Entity(tableName = CachedWeather.WEATHER_TABLE)
+@Entity(
+    tableName = CachedWeather.WEATHER_TABLE,
+    foreignKeys = arrayOf(
+        ForeignKey(
+            entity = CachedLocation::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("locationId"),
+            onDelete = ForeignKey.CASCADE
+        )
+    )
+)
 data class CachedWeather(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val temperature: Double,

@@ -23,7 +23,9 @@ import kotlin.properties.Delegates
  */
 
 abstract class BaseWeatherFragment : BaseFragment(R.layout.fragment_weather) {
-    protected val viewModel: WeatherViewModel by viewModel<WeatherViewModel>()
+
+    abstract val viewModel: BaseWeatherViewModel
+
     protected var long by Delegates.notNull<Double>()
     protected var lat by Delegates.notNull<Double>()
 

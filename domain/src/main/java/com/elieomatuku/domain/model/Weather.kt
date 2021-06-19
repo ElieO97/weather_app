@@ -10,6 +10,8 @@ data class Weather(
     val maximumTemperature: Double,
     val weatherCondition: WeatherCondition,
     val weatherConditionMain: String? = null,
+    val weatherConditionId: Int,
+    val weatherConditionDescription: String,
     val location: Location,
     val date: Long,
     val weekDay: String? = null,

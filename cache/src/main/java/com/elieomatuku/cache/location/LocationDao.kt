@@ -13,7 +13,10 @@ import androidx.room.Query
 interface LocationDao {
 
     @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where currentLocation = 1 LIMIT 1")
-    fun getCurrentLocation(): CachedLocation
+    fun getCurrentLocation(): CachedLocation?
+
+    @Query("DELETE FROM ${CachedLocation.LOCATION_TABLE} WHERE currentLocation = 1")
+    fun deleteCurrentLocation()
 
     @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where favouriteLocation = 1")
     fun getFavouritesLocations(): List<CachedLocation>

@@ -9,4 +9,6 @@ import com.elieomatuku.domain.model.Weather
 interface WeatherRepository {
     suspend fun getLocationCurrentWeather(lat: Double, long: Double): Weather
     suspend fun getLocationWeatherFiveDayForecast(lat: Double, long: Double): List<Weather>
+    suspend fun saveCurrentLocationWeather(weather: Weather, lat: Double, long: Double): Weather
+    suspend fun saveFavouriteLocationWeather(weather: Weather, lat: Double, long: Double): Weather
 }
