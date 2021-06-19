@@ -57,4 +57,10 @@ class LocationRepositoryImpl(private val factory: LocationDataStoreFactory) : Lo
             LocationEntity.toLocation(it)
         }
     }
+
+    override suspend fun getAllLocations(): List<Location> {
+        return factory.retrieveCacheDataStore().getAllLocations().map {
+            LocationEntity.toLocation(it)
+        }
+    }
 }

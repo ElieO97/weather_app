@@ -25,7 +25,8 @@ data class CachedLocation(
                 name = cachedLocation.name,
                 latitude = cachedLocation.latitude,
                 longitude = cachedLocation.longitude,
-                id = cachedLocation.id
+                id = cachedLocation.id,
+                isCurrentLocation = cachedLocation.currentLocation ?: false
             )
         }
 
@@ -40,7 +41,7 @@ data class CachedLocation(
                 latitude = location.latitude,
                 longitude = location.longitude,
                 currentLocation = currentLocation,
-                favouriteLocation = favouriteLocation
+                favouriteLocation = favouriteLocation,
             )
         }
     }

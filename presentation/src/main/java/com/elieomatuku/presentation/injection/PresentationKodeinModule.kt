@@ -3,6 +3,7 @@ package com.elieomatuku.presentation.injection
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.elieomatuku.domain.interactor.location.DeleteFavouriteLocation
+import com.elieomatuku.domain.interactor.location.GetAllLocations
 import com.elieomatuku.domain.interactor.location.GetCurrentLocation
 import com.elieomatuku.domain.interactor.location.GetFavouriteLocations
 import com.elieomatuku.domain.interactor.location.GetLocationDetails
@@ -12,6 +13,7 @@ import com.elieomatuku.domain.interactor.weather.GetCurrentLocationCurrentWeathe
 import com.elieomatuku.domain.interactor.weather.GetFavouriteLocationCurrentWeather
 import com.elieomatuku.domain.interactor.weather.GetLocationFiveDayForecast
 import com.elieomatuku.presentation.ui.favourites.FavouritesViewModel
+import com.elieomatuku.presentation.ui.map.MapViewModel
 import com.elieomatuku.presentation.ui.search.SearchViewModel
 import com.elieomatuku.presentation.ui.weather.currentlocation.CurrentLocationWeatherViewModel
 import com.elieomatuku.presentation.ui.weather.favouritelocations.FavouriteLocationWeatherViewModel
@@ -73,6 +75,10 @@ object PresentationKodeinModule {
                 DeleteFavouriteLocation(instance())
             }
 
+            bind<GetAllLocations>() with singleton {
+                GetAllLocations(instance())
+            }
+
             bindViewModel<CurrentLocationWeatherViewModel>() with provider {
                 CurrentLocationWeatherViewModel(instance(), instance())
             }
@@ -87,6 +93,10 @@ object PresentationKodeinModule {
 
             bindViewModel<SearchViewModel>() with provider {
                 SearchViewModel(instance(), instance())
+            }
+
+            bindViewModel<MapViewModel>() with provider {
+                MapViewModel(instance())
             }
 
             bind<FusedLocationProviderClient>() with singleton {

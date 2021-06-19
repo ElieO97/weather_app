@@ -18,6 +18,9 @@ interface LocationDao {
     @Query("DELETE FROM ${CachedLocation.LOCATION_TABLE} WHERE currentLocation = 1")
     fun deleteCurrentLocation()
 
+    @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE}")
+    fun getAllLocations(): List<CachedLocation>
+
     @Query("SELECT * FROM ${CachedLocation.LOCATION_TABLE} where favouriteLocation = 1")
     fun getFavouritesLocations(): List<CachedLocation>
 

@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat
 import com.elieomatuku.presentation.R
 import com.elieomatuku.presentation.ui.base.BaseActivity
 import com.elieomatuku.presentation.ui.favourites.FavouritesActivity
+import com.elieomatuku.presentation.ui.map.MapActivity
 import com.elieomatuku.presentation.ui.weather.currentlocation.CurrentLocationWeatherFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -28,6 +29,7 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
                 }
 
                 R.id.map_item -> {
+                    startActivity(Intent(this, MapActivity::class.java))
                 }
             }
             false

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.android.secrets-gradle-plugin' version '1.1.0'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -38,6 +39,8 @@ android {
 
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
             buildConfigField "String", "LOCATION_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
+            manifestPlaceholders["locationApiKey"] = "AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg"
+
         }
 
         beta {
@@ -49,6 +52,8 @@ android {
 
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
             buildConfigField "String", "LOCATION_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
+            manifestPlaceholders["locationApiKey"] = "AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg"
+
         }
 
         prod {
@@ -59,6 +64,8 @@ android {
 
             buildConfigField "String", "LOCATION_API_URL", "\"https://maps.googleapis.com/maps/api/\""
             buildConfigField "String", "LOCATION_APIKEY", "\"AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg\""
+            manifestPlaceholders["locationApiKey"] = "AIzaSyAGU76RLjQYJbjRvtoNCIeVZKuLSNpSKjg"
+        
         }
     }
 
@@ -98,6 +105,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation("com.squareup.okhttp3:logging-interceptor:${versions.okhttp}")
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

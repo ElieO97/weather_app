@@ -13,12 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Weather_app">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${locationApiKey}" />
+
         <activity
             android:name="com.elieomatuku.presentation.ui.home.HomeActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -29,12 +34,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.elieomatuku.presentation.ui.search.SearchResultActivity"/>
-        <activity android:name="com.elieomatuku.presentation.ui.weather.WeatherActivity"
-            android:launchMode="singleTask"
-            >
+        <activity android:name="com.elieomatuku.presentation.ui.search.SearchResultActivity" />
+        <activity
+            android:name="com.elieomatuku.presentation.ui.weather.WeatherActivity"
+            android:launchMode="singleTask"></activity>
 
-        </activity>
+        <activity android:name="com.elieomatuku.presentation.ui.map.MapActivity" />
 
     </application>
 
