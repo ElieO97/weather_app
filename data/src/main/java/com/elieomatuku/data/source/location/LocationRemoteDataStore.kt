@@ -36,4 +36,8 @@ class LocationRemoteDataStore(private val locationRemote: LocationRemote) : Loca
     override suspend fun searchLocation(name: String): List<LocationEntity> {
         return locationRemote.searchLocation(name)
     }
+
+    override suspend fun getAllLocations(): List<LocationEntity> {
+        throw UnsupportedOperationException()
+    }
 }

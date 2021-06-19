@@ -11,6 +11,7 @@ data class LocationEntity(
     val latitude: Double,
     val longitude: Double,
     val id: Long? = null,
+    val isCurrentLocation: Boolean = false
 ) {
     companion object {
         fun toLocation(locationEntity: LocationEntity): Location {
@@ -18,7 +19,8 @@ data class LocationEntity(
                 name = locationEntity.name,
                 latitude = locationEntity.latitude,
                 longitude = locationEntity.longitude,
-                id = locationEntity.id
+                id = locationEntity.id,
+                isCurrentLocation = locationEntity.isCurrentLocation
             )
         }
 
@@ -27,7 +29,8 @@ data class LocationEntity(
                 name = location.name,
                 latitude = location.latitude,
                 longitude = location.longitude,
-                id = location.id
+                id = location.id,
+                isCurrentLocation = location.isCurrentLocation
             )
         }
     }

@@ -14,4 +14,5 @@ interface LocationRepository {
     suspend fun saveCurrentLocation(location: Location)
     suspend fun deleteFavouriteLocation(location: Location)
     suspend fun searchLocation(name: String): List<Location>
+    suspend fun getAllLocations(): List<Location>
 }

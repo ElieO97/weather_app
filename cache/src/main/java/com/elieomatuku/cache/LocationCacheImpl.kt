@@ -52,6 +52,12 @@ class LocationCacheImpl(private val locationDao: LocationDao) : LocationCache {
         }
     }
 
+    override fun getAllLocations(): List<LocationEntity> {
+        return locationDao.getAllLocations().map {
+            CachedLocation.toLocationEntity(it)
+        }
+    }
+
     override fun isExpiredCurrentLocation(lat: Double, long: Double): Boolean {
         val currentLocation = getCurrentLocation()
         return ((lat != currentLocation.latitude) && (long != currentLocation.longitude))

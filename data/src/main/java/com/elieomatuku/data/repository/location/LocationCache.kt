@@ -23,4 +23,6 @@ interface LocationCache {
     fun getCurrentLocation(): LocationEntity
 
     fun getFavouriteLocations(): List<LocationEntity>
+
+    fun getAllLocations(): List<LocationEntity>
 }
