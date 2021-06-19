@@ -32,6 +32,23 @@ class WeatherRepositoryImpl(
         }
     }
 
+    override suspend fun getCurrentLocationCurrentWeather(lat: Double, long: Double): Weather {
+        return try {
+            val dataStore = factory.retrieveDataStore(lat, long)
+            var weatherEntity = dataStore.getLocationCurrentWeather(lat, long)
+            weatherEntity = weatherEntity?.updateLocation(lat, long)
+            weatherEntity!!.let(WeatherEntity::toWeather)
+        } catch (e: Exception) {
+            val currentLocation = locationRepository.getCurrentLocation(lat, long)
+            val weatherEntity =
+                factory.retrieveCacheDataStore().getLocationCurrentWeather(
+                    currentLocation.latitude,
+                    currentLocation.longitude
+                )!!
+            weatherEntity.let(WeatherEntity::toWeather)
+        }
+    }
+
     override suspend fun getLocationWeatherFiveDayForecast(
         lat: Double,
         long: Double

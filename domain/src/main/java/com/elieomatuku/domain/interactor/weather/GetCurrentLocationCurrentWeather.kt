@@ -15,7 +15,7 @@ class GetCurrentLocationCurrentWeather(private val weatherRepository: WeatherRep
 
     override suspend fun execute(params: Input): CompleteResult<Weather> {
         return safeUseCaseCall {
-            val weather = weatherRepository.getLocationCurrentWeather(
+            val weather = weatherRepository.getCurrentLocationCurrentWeather(
                 params.latitude,
                 params.longitude
             )
